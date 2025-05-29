@@ -16,12 +16,12 @@ export function renderFooter() {
             <h4>Learn</h4>
             <a href="#">Courses</a>
             <a href="#">Practice</a>
-            <a href="#">Dictionary</a>
+            <a href="#/dictionary">Dictionary</a>
             <a href="#">Resources</a>
           </div>
           <div>
             <h4>Company</h4>
-            <a href="#">About</a>
+            <a href="#/about">About</a>
             <a href="#">Careers</a>
             <a href="#">Blog</a>
             <a href="#">Contact</a>

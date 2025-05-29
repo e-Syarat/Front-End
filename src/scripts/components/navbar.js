@@ -6,7 +6,7 @@ export function renderNavbar() {
     <header class="main-header">
       <a href="#/home" class="logo">
         <img src="${LogoImg}" alt="e-Syarat Logo" class="logo-img" />
-        <span class="logo-text">e-<strong>Syarat</strong></span>
+        <span class="logo-text"><strong>e-Syarat</strong></span>
       </a>
       <nav class="main-nav">
         <a href="#/home" class="nav-link">Home</a>
