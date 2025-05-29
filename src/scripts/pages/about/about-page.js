@@ -1,9 +1,5 @@
-import { renderNavbar } from '../../components/navbar.js';
-import { renderFooter } from '../../components/footer.js';
-
 export function renderAboutPage(data) {
   return `
-    ${renderNavbar()}
     <main class="about-main">
       <section class="about-hero">
         <div class="about-hero-text">
@@ -32,14 +28,18 @@ export function renderAboutPage(data) {
       <section class="about-team">
         <h2 class="about-section-title">Tim Kami</h2>
         <div class="about-team-cards">
-          ${data.team.map(member => `
+          ${data.team
+            .map(
+              (member) => `
             <div class="about-team-card">
               <img src="${member.photo}" alt="${member.name}" class="about-team-photo" />
               <h4>${member.name}</h4>
               <span class="about-team-role">${member.role}</span>
               <p class="about-team-desc">${member.desc}</p>
             </div>
-          `).join('')}
+          `
+            )
+            .join("")}
         </div>
       </section>
       <section class="about-cta">
@@ -51,6 +51,5 @@ export function renderAboutPage(data) {
         </div>
       </section>
     </main>
-    ${renderFooter()}
   `;
 }

@@ -1,7 +1,5 @@
 // login-page.js
-import { renderNavbar } from '../../../components/navbar.js';
-import { renderFooter } from '../../../components/footer.js';
-import LoginIllustration from '../../../../assets/login-illustration.png';
+import LoginIllustration from "../../../../assets/login-illustration.png";
 
 export default class LoginPage {
   constructor(root, onLoginSubmit) {
@@ -11,7 +9,6 @@ export default class LoginPage {
 
   render() {
     this.root.innerHTML = `
-      ${renderNavbar()}
       <section class="login-page">
         <div class="login-card">
           <h2>Welcome Back to <span class="brand">e-Syarat</span></h2>
@@ -34,18 +31,17 @@ export default class LoginPage {
           <img src="${LoginIllustration}" alt="Login Illustration" />
         </div>
       </section>
-      ${renderFooter()}
     `;
 
-    const form = document.getElementById('login-form');
-    form.addEventListener('submit', (e) => {
+    const form = document.getElementById("login-form");
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
       const email = form.email.value;
       const password = form.password.value;
-      this.root.classList.add('fade-out');
+      this.root.classList.add("fade-out");
       setTimeout(() => {
         this.onLoginSubmit(email, password);
-        this.root.classList.remove('fade-out');
+        this.root.classList.remove("fade-out");
       }, 400);
     });
   }

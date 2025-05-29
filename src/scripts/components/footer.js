@@ -2,12 +2,11 @@ import LogoImg from '../../assets/logo.png';
 
 export function renderFooter() {
   return `
-    <footer class="main-footer">
-      <div class="footer-top">
+      <div class=" container footer-top">
         <div class="footer-brand">
           <img src="${LogoImg}" alt="e-Syarat Logo" class="logo-img" />
           <div>
-            <span class="logo-text">e-<strong>Syarat</strong></span>
+            <span class="logo-text-footer"><strong>e-Syarat</strong></span>
             <p class="footer-desc">Making sign language learning accessible to everyone.</p>
           </div>
         </div>
@@ -37,9 +36,8 @@ export function renderFooter() {
           </div>
         </div>
       </div>
-      <div class="footer-bottom">
+      <div class="container footer-bottom">
         <span>&copy; 2025 e-Syarat. All rights reserved.</span>
       </div>
-    </footer>
   `;
 }

@@ -83,4 +83,28 @@
   .hero-image img {
       width: 220px;
   }
+  
+  .about-hero {
+    flex-direction: column;
+    padding: 32px 12px;
+    gap: 24px;
+  }
+  
+  .about-mv-cards,
+  .about-team-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  
+  .about-mv-card,
+  .about-team-card {
+    width: 100%;
+    max-width: 340px;
+  }
+  
+  .about-hero-illustration {
+    width: 100%;
+    max-width: 260px;
+  }
 }

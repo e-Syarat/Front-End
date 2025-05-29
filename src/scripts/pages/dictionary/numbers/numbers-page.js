@@ -1,9 +1,5 @@
-import { renderNavbar } from '../../../components/navbar.js';
-import { renderFooter } from '../../../components/footer.js';
-
 export function renderNumbersPage(data, query = '') {
   return `
-    ${renderNavbar()}
     <main class="dictionary-main">
       <h1 class="dictionary-title">Explore Sign Language Dictionary</h1>
       <p class="dictionary-desc">Browse gestures for letters, numbers, and common words.</p>
@@ -26,6 +22,5 @@ export function renderNumbersPage(data, query = '') {
         `).join('')}
       </div>
     </main>
-    ${renderFooter()}
   `;
 }

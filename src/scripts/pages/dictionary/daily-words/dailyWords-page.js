@@ -1,9 +1,5 @@
-import { renderNavbar } from '../../../components/navbar.js';
-import { renderFooter } from '../../../components/footer.js';
-
-export function renderDailyWordsPage(data, query = '') {
+export function renderDailyWordsPage(data, query = "") {
   return `
-    ${renderNavbar()}
     <main class="dictionary-main">
       <h1 class="dictionary-title">Explore Sign Language Dictionary</h1>
       <p class="dictionary-desc">Browse gestures for letters, numbers, and common words.</p>
@@ -13,19 +9,24 @@ export function renderDailyWordsPage(data, query = '') {
           <a href="#/dictionary/numbers" class="dictionary-tab">Numbers</a>
           <a href="#/dictionary/daily-words" class="dictionary-tab active">Daily Words</a>
         </div>
-        <input type="search" class="dictionary-search" placeholder="Search letter, number, or word..." value="${query || ''}" />
+        <input type="search" class="dictionary-search" placeholder="Search letter, number, or word..." value="${
+          query || ""
+        }" />
       </div>
       <div class="dictionary-grid">
-        ${data.map(item => `
+        ${data
+          .map(
+            (item) => `
           <div class="dictionary-card">
             <div class="dictionary-img-box">
               <img src="${item.image}" alt="Sign for ${item.word}" class="dictionary-img" />
             </div>
             <div class="dictionary-label">${item.word}</div>
           </div>
-        `).join('')}
+        `
+          )
+          .join("")}
       </div>
     </main>
-    ${renderFooter()}
   `;
 }

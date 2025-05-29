@@ -1,6 +1,3 @@
-import { renderNavbar } from '../../components/navbar.js';
-import { renderFooter } from '../../components/footer.js';
-
 export default class PracticePage {
   constructor(root) {
     this.root = root;
@@ -10,7 +7,6 @@ export default class PracticePage {
 
   async render() {
     this.root.innerHTML = `
-      ${renderNavbar()}
       <section class="practice-section" style="display:flex; flex-direction:column; align-items:center;">
         <h2 class="practice-title">Mulai Belajar Bahasa Isyarat</h2>
         <p class="practice-desc">Gunakan kamera Anda untuk mulai belajar bahasa isyarat secara langsung.<br>Pastikan tangan Anda terlihat jelas di kamera.</p>
@@ -92,21 +88,27 @@ export default class PracticePage {
           </div>
         </div>
       </section>
-      ${renderFooter()}
     `;
 
     // Kamera logic
-    const video = document.getElementById('practice-video');
-    const cameraStatus = document.getElementById('camera-status-label');
-    const startBtn = document.getElementById('start-camera');
-    const stopBtn = document.getElementById('stop-camera');
-    const cameraSelect = document.getElementById('camera-select');
+    const video = document.getElementById("practice-video");
+    const cameraStatus = document.getElementById("camera-status-label");
+    const startBtn = document.getElementById("start-camera");
+    const stopBtn = document.getElementById("stop-camera");
+    const cameraSelect = document.getElementById("camera-select");
 
     // Populate camera options
     if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
       const devices = await navigator.mediaDevices.enumerateDevices();
-      const videoDevices = devices.filter(d => d.kind === 'videoinput');
-      cameraSelect.innerHTML = videoDevices.map((d, i) => `<option value="${d.deviceId}">${d.label || 'Kamera ' + (i + 1)}</option>`).join('');
+      const videoDevices = devices.filter((d) => d.kind === "videoinput");
+      cameraSelect.innerHTML = videoDevices
+        .map(
+          (d, i) =>
+            `<option value="${d.deviceId}">${
+              d.label || "Kamera " + (i + 1)
+            }</option>`
+        )
+        .join("");
       this.selectedDeviceId = videoDevices[0]?.deviceId || null;
       cameraSelect.onchange = (e) => {
         this.selectedDeviceId = e.target.value;
@@ -122,20 +124,23 @@ export default class PracticePage {
       if (!this.selectedDeviceId) return;
       if (!this.stream) {
         try {
-          this.stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: this.selectedDeviceId } } });
+          this.stream = await navigator.mediaDevices.getUserMedia({
+            video: { deviceId: { exact: this.selectedDeviceId } },
+          });
           video.srcObject = this.stream;
-          cameraStatus.textContent = 'Aktif';
+          cameraStatus.textContent = "Aktif";
         } catch (err) {
-          video.parentElement.innerHTML = '<p style="color:red">Tidak dapat mengakses kamera.</p>';
+          video.parentElement.innerHTML =
+            '<p style="color:red">Tidak dapat mengakses kamera.</p>';
         }
       }
     };
     const stopCamera = () => {
       if (this.stream) {
-        this.stream.getTracks().forEach(track => track.stop());
+        this.stream.getTracks().forEach((track) => track.stop());
         video.srcObject = null;
         this.stream = null;
-        cameraStatus.textContent = 'Nonaktif';
+        cameraStatus.textContent = "Nonaktif";
       }
     };
 
@@ -143,28 +148,30 @@ export default class PracticePage {
     try {
       startBtn.onclick = startCamera;
       stopBtn.onclick = stopCamera;
-      document.getElementById('start-detect').onclick = () => {
-        document.getElementById('detection-result').innerHTML = '<span style="font-size:2rem;">🖐️</span><b>Halo</b><p>Gerakan tangan terdeteksi</p>';
+      document.getElementById("start-detect").onclick = () => {
+        document.getElementById("detection-result").innerHTML =
+          '<span style="font-size:2rem;">🖐️</span><b>Halo</b><p>Gerakan tangan terdeteksi</p>';
       };
-      document.getElementById('stop-detect').onclick = () => {
-        document.getElementById('detection-result').innerHTML = '<span style="font-size:2rem;">🖐️</span><b>---</b><p>Gerakan tangan tidak terdeteksi</p>';
+      document.getElementById("stop-detect").onclick = () => {
+        document.getElementById("detection-result").innerHTML =
+          '<span style="font-size:2rem;">🖐️</span><b>---</b><p>Gerakan tangan tidak terdeteksi</p>';
       };
     } catch (e) {
-      console.error('Error memasang event listener tombol kamera/deteksi:', e);
+      console.error("Error memasang event listener tombol kamera/deteksi:", e);
     }
 
     // Otomatis matikan kamera saat pindah halaman
-    window.addEventListener('hashchange', () => {
+    window.addEventListener("hashchange", () => {
       stopCamera();
     });
 
     // Tambahkan event listener untuk redirect kartu kategori
-    document.getElementById('category-alphabet').onclick = () => {
-      window.location.hash = '#/dictionary/alphabet';
+    document.getElementById("category-alphabet").onclick = () => {
+      window.location.hash = "#/dictionary/alphabet";
     };
-    document.getElementById('category-numbers').onclick = () => {
-      window.location.hash = '#/dictionary/numbers';
+    document.getElementById("category-numbers").onclick = () => {
+      window.location.hash = "#/dictionary/numbers";
     };
     // Daily Phrases belum diarahkan, bisa ditambah nanti jika ada halaman khusus
   }
-} 
+}

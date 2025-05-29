@@ -1,16 +1,13 @@
-import { renderNavbar } from '../../../components/navbar.js';
-import { renderFooter } from '../../../components/footer.js';
-import SignupImg from '../../../../assets/signup.png';
+import SignupImg from "../../../../assets/signup.png";
 
 export default class RegisterPage {
-    constructor(root, onRegisterSubmit) {
-        this.root = root;
-        this.onRegisterSubmit = onRegisterSubmit;
-    }
+  constructor(root, onRegisterSubmit) {
+    this.root = root;
+    this.onRegisterSubmit = onRegisterSubmit;
+  }
 
-    render() {
-        this.root.innerHTML = `
-      ${renderNavbar()}
+  render() {
+    this.root.innerHTML = `
       <section class="login-page">
         <div class="login-illustration">
           <img src="${SignupImg}" alt="Sign Up Illustration" />
@@ -35,20 +32,19 @@ export default class RegisterPage {
           </div>
         </div>
       </section>
-      ${renderFooter()}
     `;
 
-        const form = document.getElementById('register-form');
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const fullname = form.fullname.value;
-            const email = form.email.value;
-            const password = form.password.value;
-            this.onRegisterSubmit(fullname, email, password);
-        });
-    }
+    const form = document.getElementById("register-form");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const fullname = form.fullname.value;
+      const email = form.email.value;
+      const password = form.password.value;
+      this.onRegisterSubmit(fullname, email, password);
+    });
+  }
 
-    showMessage(message, success = true) {
-        alert(message);
-    }
+  showMessage(message, success = true) {
+    alert(message);
+  }
 }
