@@ -562,3 +562,292 @@ body {
         transform: scale(0.98);
     }
 }
+
+/* ================= About Page Styles ================= */
+.about-main {
+  padding: 32px 0 0 0;
+}
+.about-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  background: #e3f0ff;
+  border-radius: 18px;
+  padding: 40px 32px;
+  margin-bottom: 32px;
+}
+.about-hero-text {
+  flex: 1;
+}
+.about-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #2563eb;
+  margin-bottom: 12px;
+}
+.about-desc {
+  font-size: 1.1rem;
+  color: #222;
+  margin-bottom: 0;
+}
+.about-hero-img {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+.about-hero-illustration {
+  width: 320px;
+  max-width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px #e3e8f0;
+}
+.about-section-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 24px;
+}
+.about-mission-vision {
+  margin-bottom: 48px;
+}
+.about-mv-cards {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+.about-mv-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px #e3e8f0;
+  padding: 32px 24px;
+  text-align: center;
+  width: 320px;
+  border: 2px solid #e3e8f0;
+}
+.about-mv-card.mission {
+  border-color: #2563eb;
+}
+.about-mv-card.vision {
+  border-color: #22c55e;
+}
+.about-mv-icon {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+  color: #2563eb;
+}
+.about-mv-card.vision .about-mv-icon {
+  color: #22c55e;
+}
+.about-team {
+  margin-bottom: 48px;
+}
+.about-team-cards {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.about-team-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px #e3e8f0;
+  padding: 24px 20px;
+  width: 220px;
+  text-align: center;
+  border: 2px solid #e3e8f0;
+}
+.about-team-photo {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border: 3px solid #e3f0ff;
+}
+.about-team-role {
+  display: block;
+  font-size: 0.95rem;
+  color: #2563eb;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.about-team-desc {
+  font-size: 0.98rem;
+  color: #555;
+}
+.about-cta {
+  background: linear-gradient(90deg, #e3f0ff 0%, #f8faff 100%);
+  border-radius: 18px;
+  text-align: center;
+  padding: 40px 24px;
+  margin: 48px 0 32px 0;
+}
+.about-cta-btns {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+@media (max-width: 900px) {
+  .about-hero {
+    flex-direction: column;
+    padding: 32px 12px;
+    gap: 24px;
+  }
+  .about-mv-cards, .about-team-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .about-mv-card, .about-team-card {
+    width: 100%;
+    max-width: 340px;
+  }
+  .about-hero-illustration {
+    width: 100%;
+    max-width: 260px;
+  }
+}
+
+/* ================= Dictionary Page Styles ================= */
+.dictionary-main {
+  padding: 32px 0 0 0;
+  min-height: 80vh;
+}
+.dictionary-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #2563eb;
+  margin-bottom: 8px;
+}
+.dictionary-desc {
+  text-align: center;
+  color: #444;
+  margin-bottom: 32px;
+  font-size: 1.1rem;
+}
+.dictionary-tabs-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.dictionary-tabs {
+  display: flex;
+  gap: 12px;
+}
+.dictionary-tab {
+  background: #fff;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.dictionary-tab.active,
+.dictionary-tab:hover {
+  background: #2563eb;
+  color: #fff;
+}
+.dictionary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 28px;
+  justify-items: center;
+  margin: 0 auto 48px auto;
+  max-width: 900px;
+}
+.dictionary-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px #e3e8f0;
+  padding: 24px 12px 16px 12px;
+  text-align: center;
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #e3e8f0;
+  transition: box-shadow 0.2s, border 0.2s;
+}
+.dictionary-card:hover {
+  box-shadow: 0 4px 20px #c7d7f5;
+  border: 2px solid #2563eb;
+}
+.dictionary-img-box {
+  background: #f8faff;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 100px;
+}
+.dictionary-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+.dictionary-label {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-top: 4px;
+}
+@media (max-width: 900px) {
+  .dictionary-main {
+    padding: 18px 0 0 0;
+  }
+  .dictionary-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+    max-width: 100%;
+  }
+  .dictionary-card {
+    width: 120px;
+    padding: 16px 4px 10px 4px;
+  }
+  .dictionary-img-box {
+    height: 70px;
+    width: 70px;
+    padding: 6px;
+  }
+  .dictionary-img {
+    width: 54px;
+    height: 54px;
+  }
+  .dictionary-label {
+    font-size: 1.05rem;
+  }
+}
+
+/* Dictionary Search Input sesuai desain */
+.dictionary-search {
+  background: #fff;
+  border-radius: 20px;
+  border: 1.5px solid #dbeafe;
+  font-size: 1rem;
+  min-width: 240px;
+  padding: 10px 18px;
+  outline: none;
+  transition: border 0.2s;
+}
+.dictionary-search:focus {
+  border: 1.5px solid #2563eb;
+}
+@media (max-width: 900px) {
+  .dictionary-search {
+    min-width: 120px;
+    font-size: 0.98rem;
+  }
+}

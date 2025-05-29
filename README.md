@@ -12,7 +12,7 @@ Berikut ini adalah desain website [e-Syarat](https://www.figma.com/design/HozrML
    ```
 2. **Jalankan development server:**
    ```bash
-   npm start / npm run dev
+   npm run start-dev
    ```
    atau sesuai script yang ada di `package.json`.
 3. **Akses di browser:**

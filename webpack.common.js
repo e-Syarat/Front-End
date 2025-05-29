@@ -7,9 +7,8 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
-    publicPath: '/', // ⬅ penting untuk mendukung routing hash
+    publicPath: '/',
   },
-  mode: 'development',
   module: {
     rules: [
       {
@@ -24,6 +23,16 @@ module.exports = {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
       },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
     ],
   },
   plugins: [
@@ -31,12 +40,4 @@ module.exports = {
       template: './src/index.html',
     }),
   ],
-  devServer: {
-    static: {
-      directory: path.resolve(__dirname, 'dist'), // tempat file dibuild
-    },
-    port: 8080,
-    open: true,
-    historyApiFallback: true, // ⬅ penting untuk SPA hash routing
-  },
-};
+}; 

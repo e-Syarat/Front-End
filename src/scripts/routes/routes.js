@@ -3,6 +3,10 @@ import HomePresenter from '../pages/home/home-presenter.js';
 import LoginPresenter from '../pages/auth/login/login-presenter.js';
 import RegisterPresenter from '../pages/auth/register/register-presenter.js';
 import PracticePresenter from '../pages/practice/practice-presenter.js';
+import AboutPresenter from '../pages/about/about-presenter.js';
+import AlphabetPresenter from '../pages/dictionary/alphabet/alphabet-presenter.js';
+import NumbersPresenter from '../pages/dictionary/numbers/numbers-presenter.js';
+import DailyWordsPresenter from '../pages/dictionary/daily-words/dailyWords-presenter.js';
 
 export default class Router {
   constructor(root) {
@@ -13,6 +17,10 @@ export default class Router {
       '#/login': () => new LoginPresenter(this.root),
       '#/register': () => new RegisterPresenter(this.root),
       '#/practice': () => new PracticePresenter(this.root),
+      '#/about': () => new AboutPresenter(this.root),
+      '#/dictionary/alphabet': () => new AlphabetPresenter(this.root),
+      '#/dictionary/numbers': () => new NumbersPresenter(this.root),
+      '#/dictionary/daily-words': () => new DailyWordsPresenter(this.root),
     };
 
     window.addEventListener('hashchange', () => this.handleRoute());
@@ -21,8 +29,12 @@ export default class Router {
 
   handleRoute() {
     const hash = window.location.hash || '#/';
+    if (hash === '#/dictionary') {
+      window.location.hash = '#/dictionary/alphabet';
+      return;
+    }
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    const publicRoutes = ['#/', '#/home', '#/login', '#/register'];
+    const publicRoutes = ['#/', '#/home', '#/login', '#/register', '#/about', '#/dictionary/alphabet', '#/dictionary/numbers', '#/dictionary/daily-words'];
     if (!isLoggedIn && !publicRoutes.includes(hash)) {
       window.location.hash = '#/login';
       return;
