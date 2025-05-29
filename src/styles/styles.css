@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
 html,
-body {
-    height: 100%;
-    font-family: 'Poppins', Arial, sans-serif;
-}
 
 body {
     min-height: 100vh;
@@ -219,31 +215,6 @@ body {
     color: #444;
 }
 
-@media (max-width: 900px) {
-    .hero {
-        flex-direction: column;
-        text-align: center;
-        padding: 32px 8px;
-    }
-
-    .feature-list,
-    .testimonial-list,
-    .stat-list {
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-    }
-
-    .feature-item,
-    .testimonial-item {
-        width: 90%;
-    }
-
-    .hero-image img {
-        width: 220px;
-    }
-}
-
 /* Header Navigation */
 .main-header {
     display: flex;
@@ -326,24 +297,6 @@ body {
 .login-btn:hover {
     background: #2563eb;
     color: #fff;
-}
-
-@media (max-width: 900px) {
-    .main-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 16px 0 0 0;
-    }
-
-    .main-nav {
-        gap: 18px;
-    }
-
-    .login-btn {
-        margin-left: 0;
-        margin-top: 10px;
-    }
 }
 
 .main-footer {
@@ -438,18 +391,6 @@ body {
     padding: 16px 0;
     font-size: 0.98rem;
     color: #e3e8f0;
-}
-
-@media (max-width: 900px) {
-    .footer-top {
-        flex-direction: column;
-        gap: 32px;
-        align-items: flex-start;
-    }
-
-    .footer-links {
-        gap: 32px;
-    }
 }
 
 /* login page */
@@ -807,32 +748,6 @@ body {
   color: #2563eb;
   margin-top: 4px;
 }
-@media (max-width: 900px) {
-  .dictionary-main {
-    padding: 18px 0 0 0;
-  }
-  .dictionary-grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 16px;
-    max-width: 100%;
-  }
-  .dictionary-card {
-    width: 120px;
-    padding: 16px 4px 10px 4px;
-  }
-  .dictionary-img-box {
-    height: 70px;
-    width: 70px;
-    padding: 6px;
-  }
-  .dictionary-img {
-    width: 54px;
-    height: 54px;
-  }
-  .dictionary-label {
-    font-size: 1.05rem;
-  }
-}
 
 /* Dictionary Search Input sesuai desain */
 .dictionary-search {
@@ -847,10 +762,4 @@ body {
 }
 .dictionary-search:focus {
   border: 1.5px solid #2563eb;
-}
-@media (max-width: 900px) {
-  .dictionary-search {
-    min-width: 120px;
-    font-size: 0.98rem;
-  }
 }

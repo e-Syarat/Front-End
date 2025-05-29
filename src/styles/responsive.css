@@ -1,0 +1,86 @@
+
+@media (max-width: 900px) {
+  .dictionary-search {
+    min-width: 120px;
+    font-size: 0.98rem;
+  }
+
+  .dictionary-main {
+    padding: 18px 0 0 0;
+  }
+
+  .dictionary-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+    max-width: 100%;
+  }
+
+  .dictionary-card {
+    width: 120px;
+    padding: 16px 4px 10px 4px;
+  }
+
+  .dictionary-img-box {
+    height: 70px;
+    width: 70px;
+    padding: 6px;
+  }
+
+  .dictionary-img {
+    width: 54px;
+    height: 54px;
+  }
+
+  .dictionary-label {
+    font-size: 1.05rem;
+  }
+  
+  .footer-top {
+    flex-direction: column;
+    gap: 32px;
+    align-items: flex-start;
+  }
+  
+  .footer-links {
+      gap: 32px;
+  }
+  
+  .main-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 0 0 0;
+  }
+  
+  .main-nav {
+      gap: 18px;
+  }
+  
+  .login-btn {
+      margin-left: 0;
+      margin-top: 10px;
+  }
+  
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 8px;
+  }
+
+  .feature-list,
+  .testimonial-list,
+  .stat-list {
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+  }
+
+  .feature-item,
+  .testimonial-item {
+      width: 90%;
+  }
+
+  .hero-image img {
+      width: 220px;
+  }
+}

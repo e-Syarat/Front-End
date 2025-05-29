@@ -1,4 +1,5 @@
 import './styles/styles.css';
+import './styles/responsive.css';
 import './index.html';
 
 import HomePresenter from './scripts/pages/home/home-presenter.js';

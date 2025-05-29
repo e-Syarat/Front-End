@@ -51,9 +51,15 @@ export default class Router {
   }
 
   updateActiveNav() {
+    const hash = window.location.hash;
     const links = document.querySelectorAll('.nav-link');
     links.forEach(link => {
-      if (link.getAttribute('href') === window.location.hash) {
+      const href = link.getAttribute('href');
+      if (
+        (href === '#/dictionary' && hash.startsWith('#/dictionary')) ||
+        (href === '#/practice' && hash.startsWith('#/practice')) ||
+        href === hash
+      ) {
         link.classList.add('active');
       } else {
         link.classList.remove('active');
