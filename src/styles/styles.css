@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
 
-* {
-  /* border: #22c55e solid 1px; */
-}
+/* * {
+  border: #22c55e solid 1px;
+} */
 
 html,
 body {
@@ -106,24 +106,31 @@ body {
   margin-bottom: 32px;
 }
 
+.features h3 {
+  margin: 0;
+}
+
+.features p {
+  margin-top: 10px;
+}
+
 .feature-list {
   display: flex;
   justify-content: center;
   gap: 32px;
+  margin: 64px;
 }
 
 .feature-item {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 2px 12px #e3e8f0;
-  padding: 32px 24px;
-  text-align: center;
-  width: 260px;
+  padding-top: 32px;
+  padding-left: 24px;
 }
 
 .feature-icon {
   font-size: 2.2rem;
-  margin-bottom: 12px;
   display: block;
 }
 
@@ -181,25 +188,25 @@ body {
   display: flex;
   justify-content: center;
   gap: 32px;
+  margin-top: 64px;
+  margin-bottom: 64px;
 }
 
 .testimonial-item {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 2px 12px #e3e8f0;
-  padding: 24px 20px;
-  width: 300px;
   display: flex;
   align-items: flex-start;
   gap: 16px;
 }
 
-.testimonial-avatar {
-  width: 48px;
-  height: 48px;
+.testimonial-avatar img {
   background: #e3f0ff;
   border-radius: 50%;
   margin-top: 6px;
+  width: 48px;
+  height: 48px;
 }
 
 .testimonial-content strong {

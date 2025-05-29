@@ -30,12 +30,12 @@ export default class HomePage {
       </section>
       <section class="features">
         <h2>Why Learn with e-Syarat?</h2>
-        <div class="feature-list">
+        <div class="container feature-list">
           ${features
             .map(
               (f) => `
             <div class="feature-item">
-              <span class="feature-icon">${f.icon}</span>
+              <span class="feature-icon"><img src="${f.icon}" alt="icon"/></span>
               <h3>${f.title}</h3>
               <p>${f.description}</p>
             </div>
@@ -68,14 +68,15 @@ export default class HomePage {
       </section>
       <section class="testimonials">
         <h2>What Our Users Say</h2>
-        <div class="testimonial-list">
+        <div class="container testimonial-list">
           ${testimonials
             .map(
               (t) => `
             <div class="testimonial-item">
-              <div class="testimonial-avatar"></div>
+              <div class="testimonial-avatar"><img src="${t.avatar}" alt="avatar"/></div>
               <div class="testimonial-content">
-                <strong>${t.name}</strong> <span>${t.role}</span>
+                <strong>${t.name}</strong><br> 
+                <span>${t.role}</span>
                 <p>"${t.text}"</p>
               </div>
             </div>
