@@ -39,7 +39,7 @@ Berikut ini adalah desain website [e-Syarat](https://www.figma.com/design/HozrML
 - Membuat konfigurasi halaman responsive untuk tablet dan mobile
 - Membuat Fetch API untuk tiap page yang memerlukan back-end
 - Membuat Fetch API untuk page practice yang memerlukan machine learning
-- Mengatur Style halaman agar sesuai dengan desain web
+- Mengatur Style halaman agar sesuai dengan desain web (practice, dictionary, login, signup, about)
 
 ## Catatan Developer
 - Jika menemukan direct/link ke page yang belum ada, cek task di atas dan tambahkan page/route sesuai kebutuhan.
