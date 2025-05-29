@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
-html,
+* {
+  border: #22c55e solid 1px;
+}
 
+html,
 body {
     min-height: 100vh;
     display: flex;
@@ -16,9 +19,7 @@ body {
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px;
+
 }
 
 .hero {
@@ -220,9 +221,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 0 0 0;
-    background: transparent;
+    background: #fff;
     margin-bottom: 8px;
+    height: 72px;
 }
 
 .logo {
