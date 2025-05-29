@@ -6,7 +6,7 @@ Berikut ini adalah desain website [e-Syarat](https://www.figma.com/design/HozrML
 ---
 
 ## Cara Menjalankan Project
-1. **Install dependencies:**
+1. **Install package:**
    ```bash
    npm install
    ```
@@ -31,17 +31,15 @@ Berikut ini adalah desain website [e-Syarat](https://www.figma.com/design/HozrML
 - Setelah login, user bisa mengakses halaman lain.
 
 ## Task/Feature yang Belum Selesai
-- **Halaman About**: Belum ada, jika ada direct ke `#/about` maka developer perlu membuat page dan route-nya.
-- **Halaman Dictionary**:
-  - Belum ada halaman utama dictionary (`#/dictionary`).
-  - Belum ada halaman detail untuk:
-    - Alphabet (`#/dictionary/alphabet`)
-    - Numbers (`#/dictionary/numbers`)
-    - Daily Words/Phrases (`#/dictionary/words` atau `#/dictionary/daily`)
 - Jika di kode ada direct ke halaman di atas, developer perlu:
   1. Membuat file page di `src/pages/` dan presenter-nya.
   2. Menambahkan route di `src/routes/routes.js`.
   3. Implementasi tampilan dan logic sesuai kebutuhan.
+- Membuat transisi animasi
+- Membuat konfigurasi halaman responsive untuk tablet dan mobile
+- Membuat Fetch API untuk tiap page yang memerlukan back-end
+- Membuat Fetch API untuk page practice yang memerlukan machine learning
+- Mengatur Style halaman agar sesuai dengan desain web
 
 ## Catatan Developer
 - Jika menemukan direct/link ke page yang belum ada, cek task di atas dan tambahkan page/route sesuai kebutuhan.
