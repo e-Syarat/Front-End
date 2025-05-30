@@ -13,11 +13,10 @@ export function renderNavbar() {
         <a href="#/dictionary" class="nav-link">Dictionary</a>
         <a href="#/about" class="nav-link">About</a>
       </nav>
-      ${
-        isLoggedIn
-          ? '<a href="#" class="btn login-btn" id="logout-btn">Logout</a>'
-          : '<a href="#/login" class="btn login-btn">Login</a>'
-      }
+      ${isLoggedIn
+      ? '<a href="#" class="btn login-btn" id="logout-btn">Logout</a>'
+      : '<a href="#/login" class="btn login-btn">Login</a>'
+    }
   `;
 }
 
@@ -40,6 +39,6 @@ export function setupNavbarEvents() {
 function logoutHandler(e) {
   if (e.target && e.target.id === "logout-btn") {
     localStorage.removeItem("isLoggedIn");
-    window.location.hash = "#/login";
+    window.location.hash = "#/home";
   }
 }

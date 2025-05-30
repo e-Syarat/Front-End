@@ -45,6 +45,25 @@ export default class RegisterPage {
   }
 
   showMessage(message, success = true) {
-    alert(message);
+    const existing = document.querySelector(".modal-overlay");
+    if (existing) existing.remove();
+
+    const overlay = document.createElement("div");
+    overlay.className = "modal-overlay";
+
+    const box = document.createElement("div");
+    box.className = `modal-box ${success ? "success" : "error"}${!success ? " shake" : ""}`;
+    box.innerHTML = `
+      <p>${message}</p>
+      <button>OK</button>
+    `;
+
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    // Tombol OK tutup modal
+    box.querySelector("button").addEventListener("click", () => {
+      overlay.remove();
+    });
   }
 }

@@ -47,6 +47,24 @@ export default class LoginPage {
   }
 
   showMessage(message, success = true) {
-    alert(message); // Ganti dengan custom alert jika ingin
+    const existing = document.querySelector(".modal-overlay");
+    if (existing) existing.remove();
+
+    const overlay = document.createElement("div");
+    overlay.className = "modal-overlay";
+
+    const box = document.createElement("div");
+    box.className = `modal-box ${success ? "success" : "error"}${!success ? " shake" : ""}`;
+    box.innerHTML = `
+      <p>${message}</p>
+      <button>OK</button>
+    `;
+
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    box.querySelector("button").addEventListener("click", () => {
+      overlay.remove();
+    });
   }
 }

@@ -495,6 +495,94 @@ body {
   font-weight: 700;
 }
 
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-box {
+  background: #ffffff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  animation: fadeIn 0.3s ease-in-out;
+  font-family: sans-serif;
+}
+
+.modal-box.success {
+  border-left: 8px solid #4ade80;
+}
+
+.modal-box.error {
+  border-left: 8px solid #ef4444;
+}
+
+.modal-box.shake {
+  animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes shake {
+
+  10%,
+  90% {
+    transform: translateX(-2px);
+  }
+
+  20%,
+  80% {
+    transform: translateX(4px);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translateX(-8px);
+  }
+
+  40%,
+  60% {
+    transform: translateX(8px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.modal-box button {
+  margin-top: 20px;
+  padding: 8px 16px;
+  background-color: #1e3a8a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
 .login-illustration img {
   width: 360px;
   max-width: 100%;
@@ -524,10 +612,12 @@ body {
   }
 }
 
+
 /* ================= About Page Styles ================= */
 .about-main {
   padding: 32px 0 0 0;
 }
+
 .about-hero {
   display: flex;
   align-items: center;
@@ -538,31 +628,37 @@ body {
   padding: 40px 32px;
   margin-bottom: 32px;
 }
+
 .about-hero-text {
   flex: 1;
 }
+
 .about-title {
   font-size: 2.5rem;
   font-weight: 800;
   color: #2563eb;
   margin-bottom: 12px;
 }
+
 .about-desc {
   font-size: 1.1rem;
   color: #222;
   margin-bottom: 0;
 }
+
 .about-hero-img {
   flex: 1;
   display: flex;
   justify-content: flex-end;
 }
+
 .about-hero-illustration {
   width: 320px;
   max-width: 100%;
   border-radius: 16px;
   box-shadow: 0 2px 16px #e3e8f0;
 }
+
 .about-section-title {
   text-align: center;
   font-size: 2rem;
@@ -570,14 +666,17 @@ body {
   color: #1e293b;
   margin-bottom: 24px;
 }
+
 .about-mission-vision {
   margin-bottom: 48px;
 }
+
 .about-mv-cards {
   display: flex;
   justify-content: center;
   gap: 32px;
 }
+
 .about-mv-card {
   background: #fff;
   border-radius: 16px;
@@ -587,29 +686,36 @@ body {
   width: 320px;
   border: 2px solid #e3e8f0;
 }
+
 .about-mv-card.mission {
   border-color: #2563eb;
 }
+
 .about-mv-card.vision {
   border-color: #22c55e;
 }
+
 .about-mv-icon {
   font-size: 2.2rem;
   margin-bottom: 12px;
   color: #2563eb;
 }
+
 .about-mv-card.vision .about-mv-icon {
   color: #22c55e;
 }
+
 .about-team {
   margin-bottom: 48px;
 }
+
 .about-team-cards {
   display: flex;
   justify-content: center;
   gap: 24px;
   flex-wrap: wrap;
 }
+
 .about-team-card {
   background: #fff;
   border-radius: 16px;
@@ -619,6 +725,7 @@ body {
   text-align: center;
   border: 2px solid #e3e8f0;
 }
+
 .about-team-photo {
   width: 72px;
   height: 72px;
@@ -627,6 +734,7 @@ body {
   margin-bottom: 12px;
   border: 3px solid #e3f0ff;
 }
+
 .about-team-role {
   display: block;
   font-size: 0.95rem;
@@ -634,10 +742,12 @@ body {
   font-weight: 600;
   margin-bottom: 6px;
 }
+
 .about-team-desc {
   font-size: 0.98rem;
   color: #555;
 }
+
 .about-cta {
   background: linear-gradient(90deg, #e3f0ff 0%, #f8faff 100%);
   border-radius: 18px;
@@ -645,6 +755,7 @@ body {
   padding: 40px 24px;
   margin: 48px 0 32px 0;
 }
+
 .about-cta-btns {
   display: flex;
   justify-content: center;
@@ -657,6 +768,7 @@ body {
   padding: 32px 0 0 0;
   min-height: 80vh;
 }
+
 .dictionary-title {
   text-align: center;
   font-size: 2.2rem;
@@ -664,12 +776,14 @@ body {
   color: #2563eb;
   margin-bottom: 8px;
 }
+
 .dictionary-desc {
   text-align: center;
   color: #444;
   margin-bottom: 32px;
   font-size: 1.1rem;
 }
+
 .dictionary-tabs-search {
   display: flex;
   align-items: center;
@@ -678,10 +792,12 @@ body {
   margin-bottom: 32px;
   flex-wrap: wrap;
 }
+
 .dictionary-tabs {
   display: flex;
   gap: 12px;
 }
+
 .dictionary-tab {
   background: #fff;
   color: #2563eb;
@@ -693,11 +809,13 @@ body {
   text-decoration: none;
   transition: background 0.2s, color 0.2s;
 }
+
 .dictionary-tab.active,
 .dictionary-tab:hover {
   background: #2563eb;
   color: #fff;
 }
+
 .dictionary-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -706,6 +824,7 @@ body {
   margin: 0 auto 48px auto;
   max-width: 900px;
 }
+
 .dictionary-card {
   background: #fff;
   border-radius: 16px;
@@ -719,10 +838,12 @@ body {
   border: 2px solid #e3e8f0;
   transition: box-shadow 0.2s, border 0.2s;
 }
+
 .dictionary-card:hover {
   box-shadow: 0 4px 20px #c7d7f5;
   border: 2px solid #2563eb;
 }
+
 .dictionary-img-box {
   background: #f8faff;
   border-radius: 12px;
@@ -734,11 +855,13 @@ body {
   height: 100px;
   width: 100px;
 }
+
 .dictionary-img {
   width: 80px;
   height: 80px;
   object-fit: contain;
 }
+
 .dictionary-label {
   font-size: 1.3rem;
   font-weight: 700;
@@ -757,6 +880,7 @@ body {
   outline: none;
   transition: border 0.2s;
 }
+
 .dictionary-search:focus {
   border: 1.5px solid #2563eb;
 }
