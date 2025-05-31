@@ -12,11 +12,16 @@ export function renderNavbar() {
         <a href="#/practice" class="nav-link">Practice</a>
         <a href="#/dictionary" class="nav-link">Dictionary</a>
         <a href="#/about" class="nav-link">About</a>
-      </nav>
-      ${isLoggedIn
+        ${isLoggedIn
       ? '<a href="#" class="btn login-btn" id="logout-btn">Logout</a>'
       : '<a href="#/login" class="btn login-btn">Login</a>'
     }
+      </nav>
+      <button id="hamburger-btn" class="hamburger" aria-label="Menu">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
   `;
 }
 
@@ -28,10 +33,22 @@ export function setupNavbarEvents() {
   const btn = document.getElementById("hamburger-btn");
   const nav = document.getElementById("main-nav");
   if (btn && nav) {
-    btn.onclick = () => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
       nav.classList.toggle("open");
       btn.classList.toggle("open");
     };
+    // Tutup menu jika klik di luar nav saat open (mobile)
+    document.addEventListener("click", (e) => {
+      if (
+        nav.classList.contains("open") &&
+        !nav.contains(e.target) &&
+        e.target !== btn
+      ) {
+        nav.classList.remove("open");
+        btn.classList.remove("open");
+      }
+    });
   }
   document.addEventListener("click", logoutHandler);
 }
