@@ -1,4 +1,4 @@
-import { Camera } from '../../utils/camera.js';
+import { Camera } from "../../utils/camera.js";
 
 export default class PracticePage {
   constructor(root) {
