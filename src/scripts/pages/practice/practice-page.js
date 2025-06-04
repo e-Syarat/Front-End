@@ -1,3 +1,5 @@
+import { Camera } from '../../utils/camera.js';
+
 export default class PracticePage {
   constructor(root) {
     this.root = root;
@@ -11,10 +13,6 @@ export default class PracticePage {
         <h2 class="practice-title">Mulai Belajar Bahasa Isyarat</h2>
         <p class="practice-desc">Gunakan kamera Anda untuk mulai belajar bahasa isyarat secara langsung.<br>Pastikan tangan Anda terlihat jelas di kamera.</p>
         <div class="practice-camera-card" style="margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
-          <div style="margin-bottom:12px;">
-            <label for="camera-select"><b>Pilih Kamera:</b></label>
-            <select id="camera-select" style="padding:6px 12px; border-radius:6px; margin-left:8px;"></select>
-          </div>
           <div class="practice-camera-view" style="display:flex; flex-direction:column; align-items:center;">
             <video id="practice-video" autoplay playsinline style="background:#222; border-radius:12px; width:480px; max-width:100%;"></video>
             <span class="camera-status">Kamera <span id="camera-status-label">Nonaktif</span></span>
@@ -22,22 +20,6 @@ export default class PracticePage {
           <div class="practice-controls" style="margin-top:16px; display:flex; gap:12px;">
             <button class="btn" id="start-camera">Nyalakan Kamera</button>
             <button class="btn btn-danger" id="stop-camera">Matikan Kamera</button>
-            <button class="btn" id="start-detect">Mulai Deteksi</button>
-            <button class="btn btn-danger" id="stop-detect">Berhenti</button>
-          </div>
-          <div class="practice-result" style="margin-top:24px;">
-            <h4>Hasil Deteksi</h4>
-            <div id="detection-result">
-              <span style="font-size:2rem;">🖐️</span>
-              <b>---</b>
-              <p>Gerakan tangan tidak terdeteksi</p>
-            </div>
-            <!--
-              TODO: Integrasi API machine learning untuk deteksi gesture tangan.
-              - Ambil frame dari video
-              - Kirim ke API ML
-              - Tampilkan hasil di #detection-result
-            -->
           </div>
         </div>
       </section>
@@ -90,82 +72,28 @@ export default class PracticePage {
       </section>
     `;
 
-    // Kamera logic
+    // Kamera logic pakai Camera.js
     const video = document.getElementById("practice-video");
     const cameraStatus = document.getElementById("camera-status-label");
     const startBtn = document.getElementById("start-camera");
     const stopBtn = document.getElementById("stop-camera");
-    const cameraSelect = document.getElementById("camera-select");
+    let camera = new Camera(video);
 
-    // Populate camera options
-    if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      const videoDevices = devices.filter((d) => d.kind === "videoinput");
-      cameraSelect.innerHTML = videoDevices
-        .map(
-          (d, i) =>
-            `<option value="${d.deviceId}">${
-              d.label || "Kamera " + (i + 1)
-            }</option>`
-        )
-        .join("");
-      this.selectedDeviceId = videoDevices[0]?.deviceId || null;
-      cameraSelect.onchange = (e) => {
-        this.selectedDeviceId = e.target.value;
-        if (this.stream) {
-          // Ganti kamera jika sedang aktif
-          stopCamera();
-          startCamera();
-        }
-      };
-    }
-
-    const startCamera = async () => {
-      if (!this.selectedDeviceId) return;
-      if (!this.stream) {
-        try {
-          this.stream = await navigator.mediaDevices.getUserMedia({
-            video: { deviceId: { exact: this.selectedDeviceId } },
-          });
-          video.srcObject = this.stream;
-          cameraStatus.textContent = "Aktif";
-        } catch (err) {
-          video.parentElement.innerHTML =
-            '<p style="color:red">Tidak dapat mengakses kamera.</p>';
-        }
+    startBtn.onclick = async () => {
+      try {
+        await camera.startCamera();
+        cameraStatus.textContent = "Aktif";
+      } catch (err) {
+        cameraStatus.textContent = "Gagal";
+        alert("Tidak dapat mengakses kamera: " + err.message);
       }
     };
-    const stopCamera = () => {
-      if (this.stream) {
-        this.stream.getTracks().forEach((track) => track.stop());
-        video.srcObject = null;
-        this.stream = null;
-        cameraStatus.textContent = "Nonaktif";
-      }
+    stopBtn.onclick = () => {
+      camera.stopCamera();
+      cameraStatus.textContent = "Nonaktif";
     };
 
-    // Pasang event listener tombol dengan error handling
-    try {
-      startBtn.onclick = startCamera;
-      stopBtn.onclick = stopCamera;
-      document.getElementById("start-detect").onclick = () => {
-        document.getElementById("detection-result").innerHTML =
-          '<span style="font-size:2rem;">🖐️</span><b>Halo</b><p>Gerakan tangan terdeteksi</p>';
-      };
-      document.getElementById("stop-detect").onclick = () => {
-        document.getElementById("detection-result").innerHTML =
-          '<span style="font-size:2rem;">🖐️</span><b>---</b><p>Gerakan tangan tidak terdeteksi</p>';
-      };
-    } catch (e) {
-      console.error("Error memasang event listener tombol kamera/deteksi:", e);
-    }
-
-    // Otomatis matikan kamera saat pindah halaman
-    window.addEventListener("hashchange", () => {
-      stopCamera();
-    });
-
-    // Tambahkan event listener untuk redirect kartu kategori
+    // Redirect kategori
     document.getElementById("category-alphabet").onclick = () => {
       window.location.hash = "#/dictionary/alphabet";
     };
