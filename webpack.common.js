@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -25,11 +26,12 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: /node_modules\/(?!(@tensorflow)\/).*/,
         use: {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env'],
+            cacheDirectory: true,
           },
         },
       },
@@ -39,5 +41,20 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/public/assets/tfjs_model',
+          to: 'assets/tfjs_model'
+        }
+      ]
+    })
   ],
+  resolve: {
+    fallback: {
+      fs: false,
+      path: false,
+      crypto: false
+    }
+  }
 }; 

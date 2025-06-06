@@ -1,10 +1,13 @@
-import { Camera } from "../../utils/camera.js";
+// import { Camera } from "../../utils/camera.js";
 
 export default class PracticePage {
   constructor(root) {
     this.root = root;
     this.stream = null;
     this.selectedDeviceId = null;
+    this.model = null;
+    this.isDetecting = false;
+    this.animationFrameId = null;
   }
 
   async render() {
@@ -16,10 +19,19 @@ export default class PracticePage {
           <div class="practice-camera-view" style="display:flex; flex-direction:column; align-items:center;">
             <video id="practice-video" autoplay playsinline style="background:#222; border-radius:12px; width:480px; max-width:100%;"></video>
             <span class="camera-status">Kamera <span id="camera-status-label">Nonaktif</span></span>
+            <div id="prediction-result" style="margin-top:12px; font-size:1.2rem; font-weight:600;">
+              <span>Prediksi: </span><span id="prediction-label">-</span>
+              <div style="font-size:0.9rem; color:#666;">
+                Confidence: <span id="prediction-confidence">-</span>
+              </div>
+            </div>
           </div>
           <div class="practice-controls" style="margin-top:16px; display:flex; gap:12px;">
             <button class="btn" id="start-camera">Nyalakan Kamera</button>
             <button class="btn btn-danger" id="stop-camera">Matikan Kamera</button>
+          </div>
+          <div id="loading-model" style="display:none; margin-top:12px;">
+            <p>Memuat model bahasa isyarat...</p>
           </div>
         </div>
       </section>
@@ -34,10 +46,10 @@ export default class PracticePage {
               <span style="font-weight:600; font-size:1.1rem;">Alphabet</span>
             </div>
             <div style="font-size:.98rem; color:#444; margin-bottom:8px;">Learn to sign the ABC's</div>
-            <div style="font-size:.95rem; color:#888;">26 lessons <!-- TODO: Ganti jumlah lesson dari database --></div>
-            <div style="font-size:.95rem; color:#3b5bfd; margin-bottom:4px;">85% complete <!-- TODO: Ganti progress dari database --></div>
+            <div style="font-size:.95rem; color:#888;">26 lessons</div>
+            <div style="font-size:.95rem; color:#3b5bfd; margin-bottom:4px;">85% complete</div>
             <div style="width:100%; height:6px; background:#e6edff; border-radius:4px; overflow:hidden;">
-              <div style="width:85%; height:100%; background:#3b5bfd; border-radius:4px;"></div> <!-- TODO: Ganti width dari progress database -->
+              <div style="width:85%; height:100%; background:#3b5bfd; border-radius:4px;"></div>
             </div>
           </div>
           <!-- Numbers Card -->
@@ -47,51 +59,107 @@ export default class PracticePage {
               <span style="font-weight:600; font-size:1.1rem;">Numbers</span>
             </div>
             <div style="font-size:.98rem; color:#444; margin-bottom:8px;">Master numbers and counting</div>
-            <div style="font-size:.95rem; color:#888;">20 lessons <!-- TODO: Ganti jumlah lesson dari database --></div>
-            <div style="font-size:.95rem; color:#a259e6; margin-bottom:4px;">60% complete <!-- TODO: Ganti progress dari database --></div>
+            <div style="font-size:.95rem; color:#888;">20 lessons</div>
+            <div style="font-size:.95rem; color:#a259e6; margin-bottom:4px;">60% complete</div>
             <div style="width:100%; height:6px; background:#f3eaff; border-radius:4px; overflow:hidden;">
-              <div style="width:60%; height:100%; background:#a259e6; border-radius:4px;"></div> <!-- TODO: Ganti width dari progress database -->
-            </div>
-          </div>
-          <!-- Daily Phrases Card -->
-          <div class="practice-category-card" id="category-phrases" style="flex:1 1 260px; min-width:260px; max-width:320px; background:#fff; border-radius:16px; box-shadow:0 2px 8px #0001; padding:24px; cursor:pointer; display:flex; flex-direction:column; gap:8px; align-items:flex-start; transition:box-shadow .2s;">
-            <div style="display:flex; align-items:center; gap:12px;">
-              <div style="background:#ffe9d6; color:#ff9900; border-radius:50%; width:38px; height:38px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.2rem;">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2C5.58 2 2 5.13 2 9c0 1.61.7 3.09 1.88 4.27-.13.44-.47 1.56-.6 2.01-.1.33.24.62.54.48.66-.3 1.98-.91 2.67-1.22C7.7 14.84 8.82 15 10 15c4.42 0 8-3.13 8-7s-3.58-7-8-7z"></path></svg>
-              </div>
-              <span style="font-weight:600; font-size:1.1rem;">Daily Phrases</span>
-            </div>
-            <div style="font-size:.98rem; color:#444; margin-bottom:8px;">Common everyday expressions</div>
-            <div style="font-size:.95rem; color:#888;">30 lessons <!-- TODO: Ganti jumlah lesson dari database --></div>
-            <div style="font-size:.95rem; color:#ff9900; margin-bottom:4px;">40% complete <!-- TODO: Ganti progress dari database --></div>
-            <div style="width:100%; height:6px; background:#ffe9d6; border-radius:4px; overflow:hidden;">
-              <div style="width:40%; height:100%; background:#ff9900; border-radius:4px;"></div> <!-- TODO: Ganti width dari progress database -->
+              <div style="width:60%; height:100%; background:#a259e6; border-radius:4px;"></div>
             </div>
           </div>
         </div>
       </section>
     `;
 
-    // Kamera logic pakai Camera.js
+    // --- Integrasi deteksi seperti detection.js ---
+    // Load library tfjs jika belum ada
+    if (!window.tf) {
+      const tfScript = document.createElement('script');
+      tfScript.src = 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js';
+      document.head.appendChild(tfScript);
+      await new Promise(resolve => tfScript.onload = resolve);
+    }
+
+    // Inisialisasi elemen
     const video = document.getElementById("practice-video");
     const cameraStatus = document.getElementById("camera-status-label");
     const startBtn = document.getElementById("start-camera");
     const stopBtn = document.getElementById("stop-camera");
-    let camera = new Camera(video);
+    const loadingModel = document.getElementById("loading-model");
+    const predictionLabel = document.getElementById("prediction-label");
+    const predictionConfidence = document.getElementById("prediction-confidence");
 
-    startBtn.onclick = async () => {
+    // Path model Anda (ubah sesuai kebutuhan)
+    const MODEL_PATH = '/assets/tfjs_model/tfjs_model/model.json';
+    const IMAGE_SIZE = 128;
+    const CLASS_NAMES = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
+
+    let model = null;
+
+    // Kamera
+    let stream = null;
+    let isDetecting = false;
+    let animationFrameId = null;
+
+    async function startCamera() {
       try {
-        await camera.startCamera();
+        loadingModel.style.display = "block";
+        if (!model) {
+          model = await tf.loadLayersModel(MODEL_PATH);
+          // Warmup
+          const dummy = tf.zeros([1, IMAGE_SIZE, IMAGE_SIZE, 3]);
+          model.predict(dummy);
+          dummy.dispose();
+        }
+        loadingModel.style.display = "none";
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+        await video.play();
         cameraStatus.textContent = "Aktif";
+        isDetecting = true;
+        detectLoop();
       } catch (err) {
+        loadingModel.style.display = "none";
         cameraStatus.textContent = "Gagal";
         alert("Tidak dapat mengakses kamera: " + err.message);
       }
-    };
-    stopBtn.onclick = () => {
-      camera.stopCamera();
+    }
+
+    function stopCamera() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+      }
       cameraStatus.textContent = "Nonaktif";
-    };
+      predictionLabel.textContent = "-";
+      predictionConfidence.textContent = "-";
+      isDetecting = false;
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    }
+
+    async function detectLoop() {
+      if (!isDetecting) return;
+      if (video.readyState === 4) {
+        // Ambil frame dari video, resize, normalisasi
+        const input = tf.tidy(() => {
+          let img = tf.browser.fromPixels(video);
+          img = tf.image.resizeBilinear(img, [IMAGE_SIZE, IMAGE_SIZE]);
+          img = tf.div(img, 255.0);
+          return img.expandDims(0);
+        });
+        // Prediksi
+        const prediction = model.predict(input);
+        const data = prediction.dataSync();
+        const classIndex = data.indexOf(Math.max(...data));
+        const confidence = data[classIndex];
+        predictionLabel.textContent = CLASS_NAMES[classIndex] || '-';
+        predictionConfidence.textContent = `${(confidence * 100).toFixed(1)}%`;
+        tf.dispose([input, prediction]);
+      }
+      animationFrameId = requestAnimationFrame(detectLoop);
+    }
+    detectLoop = detectLoop.bind(this);
+
+    startBtn.onclick = startCamera;
+    stopBtn.onclick = stopCamera;
 
     // Redirect kategori
     document.getElementById("category-alphabet").onclick = () => {
@@ -100,6 +168,5 @@ export default class PracticePage {
     document.getElementById("category-numbers").onclick = () => {
       window.location.hash = "#/dictionary/numbers";
     };
-    // Daily Phrases belum diarahkan, bisa ditambah nanti jika ada halaman khusus
   }
 }
