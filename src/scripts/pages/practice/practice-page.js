@@ -16,6 +16,8 @@ export default class PracticePage {
         <h2 class="practice-title">Mulai Belajar Bahasa Isyarat</h2>
         <p class="practice-desc">Gunakan kamera Anda untuk mulai belajar bahasa isyarat secara langsung.<br>Pastikan tangan Anda terlihat jelas di kamera.</p>
         <div class="practice-camera-card" style="margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+          <label for="camera-select" style="margin-bottom:8px; font-size:1rem;">Pilih Kamera:</label>
+          <select id="camera-select" style="margin-bottom:12px; padding:6px 12px; border-radius:6px; border:1px solid #ccc;"></select>
           <div class="practice-camera-view" style="display:flex; flex-direction:column; align-items:center;">
             <video id="practice-video" autoplay playsinline style="background:#222; border-radius:12px; width:480px; max-width:100%;"></video>
             <span class="camera-status">Kamera <span id="camera-status-label">Nonaktif</span></span>
@@ -86,9 +88,10 @@ export default class PracticePage {
     const loadingModel = document.getElementById("loading-model");
     const predictionLabel = document.getElementById("prediction-label");
     const predictionConfidence = document.getElementById("prediction-confidence");
+    const cameraSelect = document.getElementById("camera-select");
 
     // Path model Anda (ubah sesuai kebutuhan)
-    const MODEL_PATH = '/assets/tfjs_model/tfjs_model/model.json';
+    const MODEL_PATH = '/assets/tfjs_model/model.json';
     const IMAGE_SIZE = 128;
     const CLASS_NAMES = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
 
@@ -99,18 +102,39 @@ export default class PracticePage {
     let isDetecting = false;
     let animationFrameId = null;
 
+    // Fungsi untuk mengisi dropdown kamera
+    async function populateCameraOptions() {
+      cameraSelect.innerHTML = '<option value="">Memuat kamera...</option>';
+      try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevices = devices.filter(device => device.kind === 'videoinput');
+        cameraSelect.innerHTML = '';
+        videoDevices.forEach((device, idx) => {
+          const option = document.createElement('option');
+          option.value = device.deviceId;
+          option.text = device.label || `Kamera ${idx + 1}`;
+          cameraSelect.appendChild(option);
+        });
+      } catch (err) {
+        cameraSelect.innerHTML = '<option value="">Tidak dapat memuat kamera</option>';
+      }
+    }
+    await populateCameraOptions();
+
     async function startCamera() {
       try {
         loadingModel.style.display = "block";
         if (!model) {
-          model = await tf.loadLayersModel(MODEL_PATH);
+          model = await tf.loadGraphModel(MODEL_PATH);
           // Warmup
           const dummy = tf.zeros([1, IMAGE_SIZE, IMAGE_SIZE, 3]);
-          model.predict(dummy);
+          await model.executeAsync(dummy);
           dummy.dispose();
         }
         loadingModel.style.display = "none";
-        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const selectedDeviceId = cameraSelect.value;
+        const constraints = selectedDeviceId ? { video: { deviceId: { exact: selectedDeviceId } } } : { video: true };
+        stream = await navigator.mediaDevices.getUserMedia(constraints);
         video.srcObject = stream;
         await video.play();
         cameraStatus.textContent = "Aktif";
@@ -146,8 +170,15 @@ export default class PracticePage {
           return img.expandDims(0);
         });
         // Prediksi
-        const prediction = model.predict(input);
-        const data = prediction.dataSync();
+        const prediction = await model.executeAsync(input);
+        let data;
+        if (Array.isArray(prediction)) {
+          data = prediction[0].dataSync();
+        } else if (typeof prediction.dataSync === 'function') {
+          data = prediction.dataSync();
+        } else {
+          data = Object.values(prediction)[0].dataSync();
+        }
         const classIndex = data.indexOf(Math.max(...data));
         const confidence = data[classIndex];
         predictionLabel.textContent = CLASS_NAMES[classIndex] || '-';
