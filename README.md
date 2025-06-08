@@ -46,8 +46,8 @@ Berikut ini adalah desain website [e-Syarat](https://www.figma.com/design/HozrML
 - Untuk integrasi data dinamis (progress, lesson count, dsb), ganti placeholder di HTML dengan data dari backend/database jika sudah tersedia.
 - Pada page Login ada 2 logic:
    1. Logic login sementara (tidak include dictionary yang sudah terintegrasi database)
-   2. Logic login yang menggunakan API (database masih lokal jadi harus clone dan setting lagi jika mau pakai yang login lewat database)
-Sementara login yang pakai logic sementara saja, sampai nanti Back-End di deploy.
+   2. Logic login yang menggunakan API (database masih lokal jadi harus clone dan setting lagi jika mau pakai yang login lewat database).<br>
+- Sementara login yang pakai logic sementara saja, sampai nanti Back-End di deploy.
 
 ---
 
