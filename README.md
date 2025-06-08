@@ -37,13 +37,17 @@ Berikut ini adalah desain website [e-Syarat](https://www.figma.com/design/HozrML
   3. Implementasi tampilan dan logic sesuai kebutuhan.
 - Membuat transisi animasi
 - Membuat konfigurasi halaman responsive untuk tablet dan mobile
-- Membuat Fetch API untuk tiap page yang memerlukan back-end
+- Membuat Fetch API untuk tiap page yang memerlukan back-end (about, signup)
 - Membuat Fetch API untuk page practice yang memerlukan machine learning
 - Mengatur Style halaman agar sesuai dengan desain web (practice, dictionary, login, signup, about)
 
 ## Catatan Developer
 - Jika menemukan direct/link ke page yang belum ada, cek task di atas dan tambahkan page/route sesuai kebutuhan.
 - Untuk integrasi data dinamis (progress, lesson count, dsb), ganti placeholder di HTML dengan data dari backend/database jika sudah tersedia.
+- Pada page Login ada 2 logic:
+   1. Logic login sementara (tidak include dictionary yang sudah terintegrasi database)
+   2. Logic login yang menggunakan API (database masih lokal jadi harus clone dan setting lagi jika mau pakai yang login lewat database)
+Sementara login yang pakai logic sementara saja, sampai nanti Back-End di deploy.
 
 ---
 
