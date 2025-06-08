@@ -1,12 +1,13 @@
-import { aboutData } from './about-model.js';
-import { renderAboutPage } from './about-page.js';
+import { aboutData } from "./about-model.js";
+import AboutPage from "./about-page.js";
 
 export default class AboutPresenter {
   constructor(root) {
     this.root = root;
+    this.view = new AboutPage(root);
   }
 
   init() {
-    this.root.innerHTML = renderAboutPage(aboutData);
+    this.view.render(aboutData);
   }
 }

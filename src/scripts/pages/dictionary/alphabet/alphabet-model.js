@@ -1,28 +1,35 @@
-export const alphabetData = [
-  { letter: 'A', image: '/src/assets/alphabet/A.png' },
-  { letter: 'B', image: '/src/assets/alphabet/B.png' },
-  { letter: 'C', image: '/src/assets/alphabet/C.png' },
-  { letter: 'D', image: '/src/assets/alphabet/D.png' },
-  { letter: 'E', image: '/src/assets/alphabet/E.png' },
-  { letter: 'F', image: '/src/assets/alphabet/F.png' },
-  { letter: 'G', image: '/src/assets/alphabet/G.png' },
-  { letter: 'H', image: '/src/assets/alphabet/H.png' },
-  { letter: 'I', image: '/src/assets/alphabet/I.png' },
-  { letter: 'J', image: '/src/assets/alphabet/J.png' },
-  { letter: 'K', image: '/src/assets/alphabet/K.png' },
-  { letter: 'L', image: '/src/assets/alphabet/L.png' },
-  { letter: 'M', image: '/src/assets/alphabet/M.png' },
-  { letter: 'N', image: '/src/assets/alphabet/N.png' },
-  { letter: 'O', image: '/src/assets/alphabet/O.png' },
-  { letter: 'P', image: '/src/assets/alphabet/P.png' },
-  { letter: 'Q', image: '/src/assets/alphabet/Q.png' },
-  { letter: 'R', image: '/src/assets/alphabet/R.png' },
-  { letter: 'S', image: '/src/assets/alphabet/S.png' },
-  { letter: 'T', image: '/src/assets/alphabet/T.png' },
-  { letter: 'U', image: '/src/assets/alphabet/U.png' },
-  { letter: 'V', image: '/src/assets/alphabet/V.png' },
-  { letter: 'W', image: '/src/assets/alphabet/W.png' },
-  { letter: 'X', image: '/src/assets/alphabet/X.png' },
-  { letter: 'Y', image: '/src/assets/alphabet/Y.png' },
-  { letter: 'Z', image: '/src/assets/alphabet/Z.png' }
-];
+import { getDictionary, getDictionaryById } from "../../../data/api";
+
+export default class AlphabetModel {
+  async fetchAll(token) {
+    try {
+      const res = await getDictionary(token);
+      if (res.status === "ok") {
+        // Jika data array, map ke format lama, jika objek tunggal, bungkus array
+        const dataArr = Array.isArray(res.data) ? res.data : [res.data];
+        return dataArr.map((item) => ({
+          letter: item.alfabet,
+          image: item.image,
+        }));
+      }
+      return [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  async fetchById(id, token) {
+    try {
+      const res = await getDictionaryById(id, token);
+      if (res.status === "ok") {
+        return {
+          letter: res.data.alfabet,
+          image: res.data.image,
+        };
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+}

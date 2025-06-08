@@ -1,12 +1,38 @@
-export const numbersData = [
-  { number: '0', image: '/src/assets/numbers/0.png' },
-  { number: '1', image: '/src/assets/numbers/1.png' },
-  { number: '2', image: '/src/assets/numbers/2.png' },
-  { number: '3', image: '/src/assets/numbers/3.png' },
-  { number: '4', image: '/src/assets/numbers/4.png' },
-  { number: '5', image: '/src/assets/numbers/5.png' },
-  { number: '6', image: '/src/assets/numbers/6.png' },
-  { number: '7', image: '/src/assets/numbers/7.png' },
-  { number: '8', image: '/src/assets/numbers/8.png' },
-  { number: '9', image: '/src/assets/numbers/9.png' }
-];
+import {
+  getDictionaryNumber,
+  getDictionaryNumberById,
+} from "../../../data/api";
+
+export default class NumbersModel {
+  async fetchAll(token) {
+    try {
+      const res = await getDictionaryNumber(token);
+      if (res.status === "ok") {
+        // Jika data array, map ke format lama, jika objek tunggal, bungkus array
+        const dataArr = Array.isArray(res.data) ? res.data : [res.data];
+        return dataArr.map((item) => ({
+          number: item.number,
+          image: item.image,
+        }));
+      }
+      return [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  async fetchById(id, token) {
+    try {
+      const res = await getDictionaryNumberById(id, token);
+      if (res.status === "ok") {
+        return {
+          number: res.data.number,
+          image: res.data.image,
+        };
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+}

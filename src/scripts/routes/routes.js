@@ -34,7 +34,7 @@ export default class Router {
       return;
     }
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    const publicRoutes = ['#/', '#/home', '#/login', '#/register'];
+    const publicRoutes = ['#/', '#/home', '#/login', '#/register', '#/about'];
     if (!isLoggedIn && !publicRoutes.includes(hash)) {
       window.location.hash = '#/login';
       return;

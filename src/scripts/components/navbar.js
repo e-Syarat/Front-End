@@ -12,10 +12,11 @@ export function renderNavbar() {
         <a href="#/practice" class="nav-link">Practice</a>
         <a href="#/dictionary" class="nav-link">Dictionary</a>
         <a href="#/about" class="nav-link">About</a>
-        ${isLoggedIn
-      ? '<a href="#" class="btn login-btn" id="logout-btn">Logout</a>'
-      : '<a href="#/login" class="btn login-btn">Login</a>'
-    }
+        ${
+          isLoggedIn
+            ? '<a href="#" class="btn login-btn" id="logout-btn">Logout</a>'
+            : '<a href="#/login" class="btn login-btn">Login</a>'
+        }
       </nav>
       <button id="hamburger-btn" class="hamburger" aria-label="Menu">
         <span class="hamburger-bar"></span>
@@ -57,5 +58,18 @@ function logoutHandler(e) {
   if (e.target && e.target.id === "logout-btn") {
     localStorage.removeItem("isLoggedIn");
     window.location.hash = "#/home";
+    rerenderNavbar();
   }
 }
+
+// Fungsi untuk re-render navbar setelah login/logout
+export function rerenderNavbar() {
+  const navbarContainer = document.getElementById("navbar");
+  if (navbarContainer) {
+    navbarContainer.innerHTML = renderNavbar();
+    navbarEventsSetup = false;
+    setupNavbarEvents();
+  }
+}
+
+globalThis.rerenderNavbar = rerenderNavbar;

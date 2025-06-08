@@ -2,9 +2,10 @@
 import LoginIllustration from "../../../../assets/login-illustration.png";
 
 export default class LoginPage {
-  constructor(root, onLoginSubmit) {
+  constructor(root) {
     this.root = root;
-    this.onLoginSubmit = onLoginSubmit;
+    this.onLoginSubmit = null;
+    this.onLoginSuccess = null;
   }
 
   render() {
@@ -40,7 +41,9 @@ export default class LoginPage {
       const password = form.password.value;
       this.root.classList.add("fade-out");
       setTimeout(() => {
-        this.onLoginSubmit(email, password);
+        if (this.onLoginSubmit) {
+          this.onLoginSubmit(email, password);
+        }
         this.root.classList.remove("fade-out");
       }, 400);
     });
@@ -54,7 +57,9 @@ export default class LoginPage {
     overlay.className = "modal-overlay";
 
     const box = document.createElement("div");
-    box.className = `modal-box ${success ? "success" : "error"}${!success ? " shake" : ""}`;
+    box.className = `modal-box ${success ? "success" : "error"}${
+      !success ? " shake" : ""
+    }`;
     box.innerHTML = `
       <p>${message}</p>
       <button>OK</button>
@@ -66,5 +71,13 @@ export default class LoginPage {
     box.querySelector("button").addEventListener("click", () => {
       overlay.remove();
     });
+
+    if (success && this.onLoginSuccess) {
+      localStorage.setItem("isLoggedIn", "true");
+      if (typeof globalThis.rerenderNavbar === "function") {
+        globalThis.rerenderNavbar();
+      }
+      window.location.hash = "#/practice";
+    }
   }
 }
