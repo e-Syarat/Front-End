@@ -1,15 +1,46 @@
 import CONFIG from "../utils/config";
 
 // 1. Login
-export async function login(username, password) {
-  const response = await fetch(`${CONFIG.BASE_URL}/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ username, password }),
-  });
-  return response.json();
+export async function login(email, password) {
+  try {
+    const response = await fetch(`${CONFIG.BASE_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+    if (response.status === 200) {
+      return data;
+    } else if (response.status === 400) {
+      return {
+        message: data.message || "Email dan password harus diisi",
+        status: 400,
+      };
+    } else if (response.status === 401) {
+      return {
+        message: data.message || "Email atau password salah",
+        status: 401,
+      };
+    } else if (response.status === 429) {
+      return {
+        message:
+          data.message ||
+          "Terlalu banyak percobaan login. Silakan coba lagi dalam 15 menit.",
+        status: 429,
+      };
+    } else {
+      return {
+        message: data.message || "Terjadi kesalahan pada server.",
+        status: response.status,
+      };
+    }
+  } catch (error) {
+    return { message: "Terjadi kesalahan pada server.", status: 500 };
+  }
 }
 
 // 2. Get dictionary (huruf)
@@ -44,14 +75,11 @@ export async function getDictionaryNumber(token) {
 
 // 5. Get dictionary number by id (angka)
 export async function getDictionaryNumberById(id, token) {
-  const response = await fetch(
-    `${CONFIG.BASE_URL}/dictionary-number/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await fetch(`${CONFIG.BASE_URL}/dictionary-number/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.json();
 }
 
