@@ -98,3 +98,28 @@ export async function getAbout() {
   const response = await fetch(`${CONFIG.BASE_URL}/about`);
   return response.json();
 }
+
+// Register
+export async function register(username, email, password) {
+  try {
+    const response = await fetch(`${CONFIG.BASE_URL}/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, email, password }),
+    });
+
+    const data = await response.json();
+
+    if (response.status === 200) {
+      return data;
+    } else if (response.status === 400) {
+      return { message: data.message || "Email sudah terdaftar", status: 400 };
+    } else {
+      return { message: data.message || "Terjadi kesalahan pada server.", status: response.status };
+    }
+  } catch (error) {
+    return { message: "Terjadi kesalahan pada server.", status: 500 };
+  }
+}
