@@ -117,7 +117,10 @@ export async function register(username, email, password) {
     } else if (response.status === 400) {
       return { message: data.message || "Email sudah terdaftar", status: 400 };
     } else {
-      return { message: data.message || "Terjadi kesalahan pada server.", status: response.status };
+      return {
+        message: data.message || "Terjadi kesalahan pada server.",
+        status: response.status,
+      };
     }
   } catch (error) {
     return { message: "Terjadi kesalahan pada server.", status: 500 };
