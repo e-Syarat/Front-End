@@ -3,23 +3,24 @@ export default class AlphabetPage {
     this.root = root;
     this.onSearch = null;
     this.data = [];
+    this.originalData = [];
   }
 
   render(data, query = "") {
     this.data = data;
+    if (!this.originalData.length) this.originalData = data; // Simpan data asli
+
     this.root.innerHTML = `
       <main class="dictionary-main">
-        <h1 class="dictionary-title">Explore Sign Language Dictionary</h1>
-        <p class="dictionary-desc">Browse gestures for letters, numbers, and common words.</p>
+        <h1 class="dictionary-title">Jelajahi Kamus Bahasa Isyarat</h1>
+        <p class="dictionary-desc">Telusuri gerakan untuk huruf, angka, dan kata sehari-hari.</p>
         <div class="dictionary-tabs-search">
           <div class="dictionary-tabs">
-            <a href="#/dictionary/alphabet" class="dictionary-tab active">Alphabet</a>
-            <a href="#/dictionary/numbers" class="dictionary-tab">Numbers</a>
-            <a href="#/dictionary/daily-words" class="dictionary-tab">Daily Words</a>
+            <a href="#/dictionary/alphabet" class="dictionary-tab active">Alfabet</a>
+            <a href="#/dictionary/numbers" class="dictionary-tab">Angka</a>
+            <a href="#/dictionary/daily-words" class="dictionary-tab">Kata Sehari-hari</a>
           </div>
-          <input type="search" class="dictionary-search" placeholder="Search letter, number, or word..." value="${
-            query || ""
-          }" />
+          <input type="search" class="dictionary-search" placeholder="Cari huruf, angka, atau kata..." value="${query || ""}" />
         </div>
         <div class="dictionary-grid">
           ${data
@@ -40,19 +41,11 @@ export default class AlphabetPage {
     const input = this.root.querySelector(".dictionary-search");
     input.value = query;
     input.addEventListener("input", () => {
-      if (input.value === "" && this.onSearch) {
-        this.onSearch("");
-      }
-    });
-    input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && this.onSearch) {
-        this.onSearch(input.value);
-      }
-    });
-    input.addEventListener("search", () => {
-      if (this.onSearch) {
-        this.onSearch(input.value);
-      }
+      const val = input.value.trim().toLowerCase();
+      const filtered = this.originalData.filter((item) =>
+        item.letter.toLowerCase().includes(val)
+      );
+      this.render(filtered, input.value);
     });
   }
 }

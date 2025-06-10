@@ -39,7 +39,7 @@ export default class PracticePage {
       </section>
       <!-- Section Kategori di bawah kamera -->
       <section class="practice-category-section" style="width:100%; max-width:1100px; margin: 40px auto 0 auto;">
-        <h3 style="font-size:1.4rem; font-weight:700; margin-bottom:18px;">Choose a Category to Practice</h3>
+        <h3 style="font-size:1.4rem; font-weight:700; margin-bottom:18px;">Pilih Kategori untuk Berlatih</h3>
         <div style="display:flex; gap:24px; flex-wrap:wrap; justify-content:center;">
           <!-- Alphabet Card -->
           <div class="practice-category-card" id="category-alphabet" style="flex:1 1 260px; min-width:260px; max-width:320px; background:#fff; border-radius:16px; box-shadow:0 2px 8px #0001; padding:24px; cursor:pointer; display:flex; flex-direction:column; gap:8px; align-items:flex-start; transition:box-shadow .2s;">
@@ -47,7 +47,7 @@ export default class PracticePage {
               <div style="background:#e6edff; color:#3b5bfd; border-radius:50%; width:38px; height:38px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.2rem;">A</div>
               <span style="font-weight:600; font-size:1.1rem;">Alphabet</span>
             </div>
-            <div style="font-size:.98rem; color:#444; margin-bottom:8px;">Learn to sign the ABC's</div>
+            <div style="font-size:.98rem; color:#444; margin-bottom:8px;">Belajar Simbol ABC's</div>
             <div style="font-size:.95rem; color:#888;">26 lessons</div>
             <div style="font-size:.95rem; color:#3b5bfd; margin-bottom:4px;">85% complete</div>
             <div style="width:100%; height:6px; background:#e6edff; border-radius:4px; overflow:hidden;">
@@ -58,9 +58,9 @@ export default class PracticePage {
           <div class="practice-category-card" id="category-numbers" style="flex:1 1 260px; min-width:260px; max-width:320px; background:#fff; border-radius:16px; box-shadow:0 2px 8px #0001; padding:24px; cursor:pointer; display:flex; flex-direction:column; gap:8px; align-items:flex-start; transition:box-shadow .2s;">
             <div style="display:flex; align-items:center; gap:12px;">
               <div style="background:#f3eaff; color:#a259e6; border-radius:50%; width:38px; height:38px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.2rem;">#</div>
-              <span style="font-weight:600; font-size:1.1rem;">Numbers</span>
+              <span style="font-weight:600; font-size:1.1rem;">Angka</span>
             </div>
-            <div style="font-size:.98rem; color:#444; margin-bottom:8px;">Master numbers and counting</div>
+            <div style="font-size:.98rem; color:#444; margin-bottom:8px;">Menguasai angka dan berhitung</div>
             <div style="font-size:.95rem; color:#888;">20 lessons</div>
             <div style="font-size:.95rem; color:#a259e6; margin-bottom:4px;">60% complete</div>
             <div style="width:100%; height:6px; background:#f3eaff; border-radius:4px; overflow:hidden;">

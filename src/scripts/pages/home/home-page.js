@@ -16,7 +16,7 @@ export default class HomePage {
           <h1>${hero.title}</h1>
           <p>${hero.description}</p>
           <div class="cta-buttons">
-            <a href="#/practice" class="btn">Start Learning</a>
+            <a href="#/practice" class="btn">Mulai Belajar</a>
             ${hero.cta
         .filter((btn) => btn.text !== "Start Learning")
         .map(
@@ -31,7 +31,7 @@ export default class HomePage {
         </div>
       </section>
       <section class="features">
-        <h2>Why Learn with e-Syarat?</h2>
+        <h2>Mengapa Belajar dengan e-Syarat?</h2>
         <div class="container feature-list">
           ${features
         .map(
@@ -61,15 +61,15 @@ export default class HomePage {
         </div>
       </section>
       <section class="cta-banner">
-        <h2>Start Your Sign Language Journey Today</h2>
-        <p>Join thousands of learners mastering sign language with our interactive platform. Get started with a free trial today!</p>
+        <h2>Mulai Perjalanan Bahasa Isyaratmu Hari Ini</h2>
+        <p>Bergabunglah bersama ribuan pembelajar yang menguasai bahasa isyarat dengan platform interaktif kami. Mulai uji coba gratis sekarang!</p>
         <div class="cta-buttons">
-          <a href="#" class="btn">Start Free Trial</a>
-          <a href="#" class="btn-outline">View Plans</a>
+          <a href="#" class="btn">Mulai Uji Coba Gratis</a>
+          <a href="#" class="btn-outline">Lihat Paket</a>
         </div>
       </section>
       <section class="testimonials">
-        <h2>What Our Users Say</h2>
+        <h2>Apa Kata Pengguna Kami</h2>
         <div class="container testimonial-list">
           ${testimonials
         .map(

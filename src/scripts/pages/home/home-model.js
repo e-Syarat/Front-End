@@ -11,10 +11,10 @@ export default class HomeModel {
     return {
       title: "Learn Sign Language the Modern Way",
       description:
-        "Master sign language through interactive lessons, practice sessions, and a comprehensive dictionary. Perfect for beginners and advanced learners.",
+        "Kuasai bahasa isyarat melalui pelajaran interaktif, sesi latihan, dan kamus lengkap. Cocok untuk pemula maupun pembelajar tingkat lanjut.",
       cta: [
         { text: "Start Learning", link: "#" },
-        { text: "Watch Demo", link: "#" },
+        { text: "Lihat Demo", link: "#" },
       ],
     };
   }
@@ -23,53 +23,53 @@ export default class HomeModel {
     return [
       {
         icon: `${div1}`,
-        title: "Interactive Learning",
+        title: "Pembelajaran Interaktif",
         description:
-          "Learn through HD video lessons with real-time feedback and practice sessions.",
+          "Belajar melalui video HD dengan umpan balik waktu nyata dan sesi latihan.",
       },
       {
         icon: `${div2}`,
-        title: "Track Progress",
+        title: "Lacak Perkembangan",
         description:
-          "Monitor your learning journey with detailed progress tracking and analytics.",
+          "Pantau perjalanan belajar Anda dengan pelacakan perkembangan dan analitik yang detail.",
       },
       {
         icon: `${div3}`,
-        title: "Rich Dictionary",
+        title: "Kamus Lengkap",
         description:
-          "Access thousands of sign language terms with detailed explanations and examples.",
+          "Akses ribuan istilah bahasa isyarat dengan penjelasan dan contoh yang lengkap.",
       },
     ];
   }
 
   getStats() {
     return [
-      { value: "50K+", label: "Active Learners" },
-      { value: "1000+", label: "Video Lessons" },
-      { value: "5000+", label: "Dictionary Terms" },
-      { value: "4.9/5", label: "User Rating" },
+      { value: "50K+", label: "Pelajar Aktif" },
+      { value: "1000+", label: "Video Pembelajaran" },
+      { value: "5000+", label: "Istilah Kamus" },
+      { value: "4.9/5", label: "Rating Pengguna" },
     ];
   }
 
   getTestimonials() {
     return [
-      {
+            {
         avatar: `${img1}`,
         name: "Sarah Johnson",
-        role: "Student",
-        text: "e-Syarat made learning sign language fun and accessible. The interactive lessons and practice sessions are incredibly helpful.",
+        role: "Pelajar",
+        text: "e-Syarat membuat belajar bahasa isyarat menjadi menyenangkan dan mudah diakses. Pelajaran interaktif dan sesi latihan sangat membantu.",
       },
       {
         avatar: `${img2}`,
         name: "Michael Chen",
-        role: "Teacher",
-        text: "As an educator, I find e-Syarat's comprehensive dictionary and lesson plans invaluable for my students.",
+        role: "Guru",
+        text: "Sebagai pengajar, saya merasa kamus dan rencana pelajaran e-Syarat sangat bermanfaat untuk murid-murid saya.",
       },
       {
         avatar: `${img3}`,
         name: "Emma Rodriguez",
-        role: "Parent",
-        text: "The progress tracking feature helps me monitor my child's learning journey. It's been a great investment.",
+        role: "Orang Tua",
+        text: "Fitur pelacakan perkembangan membantu saya memantau perjalanan belajar anak saya. Ini adalah investasi yang sangat baik.",
       },
     ];
   }

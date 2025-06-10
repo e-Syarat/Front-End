@@ -7,7 +7,7 @@ export default class AboutPage {
     this.root.innerHTML = `
       <main class="about-main">
         <section class="about-hero">
-          <div class="about-hero-text">
+          <div class="container about-hero-text">
             <h1 class="about-title"><i class="fas fa-sign-language"></i> e-<strong>Syarat</strong></h1>
             <p class="about-desc">${data.description}</p>
           </div>
