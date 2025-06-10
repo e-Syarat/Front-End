@@ -1,5 +1,5 @@
 const CONFIG = {
-    BASE_URL: 'http://localhost:8000/api',
+    BASE_URL: 'https://back-end-jcru.onrender.com/api',
   };
   
   export default CONFIG;
