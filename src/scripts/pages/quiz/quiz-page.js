@@ -2,6 +2,7 @@ export default class QuizPage {
   constructor(root) {
     this.root = root;
     this.onAnswer = null;
+    this.onRetry = null;
   }
 
   render(quiz, index, total) {
@@ -9,10 +10,10 @@ export default class QuizPage {
       <section class="quiz-section">
         <h2>Quiz Bahasa Isyarat</h2>
         <div class="quiz-progress">Soal ${index} dari ${total}</div>
-        <div class="quiz-question">${quiz.question}</div>
         <div class="quiz-image" style="margin:16px 0;">
-          <img src="${quiz.image}" alt="quiz" style="max-width:220px; max-height:220px; border-radius:12px; border:1px solid #eee;" />
+        <img src="${quiz.image}" alt="quiz" style="max-width:220px; max-height:220px; border-radius:12px; border:1px solid #eee;" />
         </div>
+        <div class="quiz-question">${quiz.question}</div>
         <form id="quiz-form">
           <div class="quiz-options">
             <label><input type="radio" name="quiz-option" value="${quiz.opsi1}" required /> ${quiz.opsi1}</label><br>
@@ -43,37 +44,17 @@ export default class QuizPage {
     // Buat overlay
     const overlay = document.createElement("div");
     overlay.id = "quiz-modal-feedback";
-    overlay.style.position = "fixed";
-    overlay.style.top = 0;
-    overlay.style.left = 0;
-    overlay.style.width = "100vw";
-    overlay.style.height = "100vh";
-    overlay.style.background = "rgba(0,0,0,0.25)";
-    overlay.style.display = "flex";
-    overlay.style.alignItems = "center";
-    overlay.style.justifyContent = "center";
-    overlay.style.zIndex = 9999;
+    overlay.className = "quiz-modal-overlay";
 
     // Buat box modal
     const box = document.createElement("div");
-    box.style.background = "#fff";
-    box.style.borderRadius = "14px";
-    box.style.boxShadow = "0 4px 24px #0002";
-    box.style.padding = "32px 28px";
-    box.style.textAlign = "center";
-    box.style.minWidth = "260px";
-    box.style.maxWidth = "90vw";
-    box.style.fontSize = "1.15rem";
-    box.style.fontWeight = "600";
-    box.style.color = isCorrect ? "#16a34a" : "#dc2626";
+    box.className = `quiz-modal-box ${isCorrect ? "correct" : "wrong"}`;
     box.innerHTML = isCorrect
       ? "<div style='font-size:2.2rem;'>🎉</div>Jawaban Anda <b>Benar!</b>"
       : `Jawaban <b>Salah</b>!<br><span style='color:#222;font-weight:400;'>Jawaban yang benar: <b>${correctAnswer}</b></span>`;
 
     overlay.appendChild(box);
     document.body.appendChild(overlay);
-
-    // Tutup modal otomatis setelah 1.2 detik
     setTimeout(() => {
       overlay.remove();
     }, 1200);
@@ -90,11 +71,15 @@ export default class QuizPage {
       </section>
     `;
     document.getElementById("quiz-retry").onclick = () => {
-      window.location.reload();
+      if (this.onRetry) this.onRetry();
     };
   }
 
   renderError(msg) {
     this.root.innerHTML = `<div class='quiz-error'>${msg}</div>`;
+  }
+
+  showLoading() {
+    this.root.innerHTML = `<section class="quiz-section"><p style="text-align:center;">Loading quiz...</p></section>`;
   }
 }

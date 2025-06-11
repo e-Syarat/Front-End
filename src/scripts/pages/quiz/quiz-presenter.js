@@ -10,10 +10,11 @@ export default class QuizPresenter {
     this.currentIndex = 0;
     this.score = 0;
     this.answered = false;
+    this.view.onRetry = this.handleRetry.bind(this);
   }
 
   async init() {
-    this.root.innerHTML = "<p>Loading quiz...</p>";
+    this.view.showLoading();
     const token = localStorage.getItem("token");
     this.quizData = await this.model.fetchQuiz(token);
     this.currentIndex = 0;
@@ -73,5 +74,9 @@ export default class QuizPresenter {
         this.view.showFinalScore(this.score, this.quizData.length);
       }
     }, 1200);
+  }
+
+  handleRetry() {
+    this.init();
   }
 }

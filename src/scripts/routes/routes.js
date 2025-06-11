@@ -60,6 +60,7 @@ export default class Router {
       if (
         (href === "#/dictionary" && hash.startsWith("#/dictionary")) ||
         (href === "#/practice" && hash.startsWith("#/practice")) ||
+        (href === "#/practice" && hash.startsWith("#/quiz")) ||
         href === hash
       ) {
         link.classList.add("active");
