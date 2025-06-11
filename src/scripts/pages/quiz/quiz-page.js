@@ -36,12 +36,47 @@ export default class QuizPage {
   }
 
   showResult(isCorrect, correctAnswer) {
-    const feedback = document.getElementById("quiz-feedback");
-    if (isCorrect) {
-      feedback.innerHTML = `<div style='color:green; font-weight:bold;'>Benar!</div>`;
-    } else {
-      feedback.innerHTML = `<div style='color:red; font-weight:bold;'>Salah! Jawaban yang benar: <b>${correctAnswer}</b></div>`;
-    }
+    // Hapus feedback lama jika ada
+    const oldModal = document.getElementById("quiz-modal-feedback");
+    if (oldModal) oldModal.remove();
+
+    // Buat overlay
+    const overlay = document.createElement("div");
+    overlay.id = "quiz-modal-feedback";
+    overlay.style.position = "fixed";
+    overlay.style.top = 0;
+    overlay.style.left = 0;
+    overlay.style.width = "100vw";
+    overlay.style.height = "100vh";
+    overlay.style.background = "rgba(0,0,0,0.25)";
+    overlay.style.display = "flex";
+    overlay.style.alignItems = "center";
+    overlay.style.justifyContent = "center";
+    overlay.style.zIndex = 9999;
+
+    // Buat box modal
+    const box = document.createElement("div");
+    box.style.background = "#fff";
+    box.style.borderRadius = "14px";
+    box.style.boxShadow = "0 4px 24px #0002";
+    box.style.padding = "32px 28px";
+    box.style.textAlign = "center";
+    box.style.minWidth = "260px";
+    box.style.maxWidth = "90vw";
+    box.style.fontSize = "1.15rem";
+    box.style.fontWeight = "600";
+    box.style.color = isCorrect ? "#16a34a" : "#dc2626";
+    box.innerHTML = isCorrect
+      ? "<div style='font-size:2.2rem;'>🎉</div>Jawaban Anda <b>Benar!</b>"
+      : `Jawaban <b>Salah</b>!<br><span style='color:#222;font-weight:400;'>Jawaban yang benar: <b>${correctAnswer}</b></span>`;
+
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    // Tutup modal otomatis setelah 1.2 detik
+    setTimeout(() => {
+      overlay.remove();
+    }, 1200);
   }
 
   showFinalScore(score, total) {
@@ -49,7 +84,9 @@ export default class QuizPage {
       <section class="quiz-section">
         <h2>Quiz Selesai!</h2>
         <div class="quiz-score">Skor Anda: <b>${score}</b> dari <b>${total}</b></div>
-        <button class="btn" id="quiz-retry">Ulangi Quiz</button>
+        <div style="display: flex; justify-content: center;">
+          <button class="btn" id="quiz-retry">Ulangi Quiz</button>
+        </div>
       </section>
     `;
     document.getElementById("quiz-retry").onclick = () => {
