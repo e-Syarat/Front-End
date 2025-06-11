@@ -1,4 +1,4 @@
-import LogoImg from '../../assets/logo.png';
+import LogoImg from "../../assets/logo.png";
 
 export function renderFooter() {
   return `
@@ -37,7 +37,7 @@ export function renderFooter() {
         </div>
       </div>
       <div class="container footer-bottom">
-        <span>&copy; 2025 e-Syarat. Hak cipta dilindungi undang-undang.</span>
+        <span>&copy; ${new Date().getFullYear()} e-Syarat. Hak cipta dilindungi undang-undang.</span>
       </div>
   `;
 }
