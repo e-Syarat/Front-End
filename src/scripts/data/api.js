@@ -85,12 +85,25 @@ export async function getDictionaryNumberById(id, token) {
 
 // 6. Get quiz
 export async function getQuiz(token) {
-  const response = await fetch(`${CONFIG.BASE_URL}/quiz`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.json();
+  try {
+    const response = await fetch(`${CONFIG.BASE_URL}/quiz`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      return data; // { status: 'ok', data: {...} }
+    } else if (response.status === 401) {
+      return { error: "Invalid or expired token", status: 401 };
+    } else if (response.status === 500) {
+      return { error: "Something went wrong", status: 500 };
+    } else {
+      return { error: "Unknown error", status: response.status };
+    }
+  } catch (error) {
+    return { error: "Terjadi kesalahan pada server.", status: 500 };
+  }
 }
 
 // 7. Get about
