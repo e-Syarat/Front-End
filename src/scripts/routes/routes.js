@@ -8,6 +8,8 @@ import AlphabetPresenter from "../pages/dictionary/alphabet/alphabet-presenter.j
 import NumbersPresenter from "../pages/dictionary/numbers/numbers-presenter.js";
 import DailyWordsPresenter from "../pages/dictionary/daily-words/dailyWords-presenter.js";
 import QuizPresenter from "../pages/quiz/quiz-presenter.js";
+import PaketPresenter from "../pages/paket/paket-presenter.js";
+import PaymentPresenter from "../pages/payment/payment-presenter.js";
 
 export default class Router {
   constructor(root) {
@@ -23,6 +25,8 @@ export default class Router {
       "#/dictionary/numbers": () => new NumbersPresenter(this.root),
       "#/dictionary/daily-words": () => new DailyWordsPresenter(this.root),
       "#/quiz": () => new QuizPresenter(this.root),
+      "#/paket": () => new PaketPresenter(this.root),
+      "#/payment": () => new PaymentPresenter(this.root),
     };
 
     window.addEventListener("hashchange", () => this.handleRoute());
@@ -31,17 +35,18 @@ export default class Router {
 
   handleRoute() {
     const hash = window.location.hash || "#/";
-    if (hash === "#/dictionary") {
+    const path = hash.split('?')[0];
+    if (path === "#/dictionary") {
       window.location.hash = "#/dictionary/alphabet";
       return;
     }
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     const publicRoutes = ["#/", "#/home", "#/login", "#/register", "#/about"];
-    if (!isLoggedIn && !publicRoutes.includes(hash)) {
+    if (!isLoggedIn && !publicRoutes.includes(path)) {
       window.location.hash = "#/login";
       return;
     }
-    const routeHandler = this.routes[hash];
+    const routeHandler = this.routes[path];
     console.log("[Router] Navigating to:", hash);
     if (routeHandler) {
       const presenter = routeHandler();

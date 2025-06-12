@@ -65,7 +65,7 @@ export default class HomePage {
         <p>Bergabunglah bersama ribuan pembelajar yang menguasai bahasa isyarat dengan platform interaktif kami. Mulai uji coba gratis sekarang!</p>
         <div class="cta-buttons">
           <a href="#" class="btn">Mulai Uji Coba Gratis</a>
-          <a href="#" class="btn-outline">Lihat Paket</a>
+          <a href="#/paket" class="btn-outline">Lihat Paket</a>
         </div>
       </section>
       <section class="testimonials">
