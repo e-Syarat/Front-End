@@ -380,8 +380,10 @@
     width: 120px;
     height: auto;
   }
+
   .features {
     margin: 0 20px;
+    margin-bottom: 20px;
   }
   .feature-list,
   .testimonial-list,
@@ -396,9 +398,10 @@
     width: 100%;
     padding: 16px 8px;
   }
-  
+
   .testimonials {
     margin: 0 20px;
+    margin-bottom: 20px;
   }
 
   .cta-buttons {
@@ -406,6 +409,18 @@
     gap: 8px;
     width: 100%;
   }
+
+  .cta-banner,
+  .btn,
+  .btn-outline {
+    margin: 0 20px;
+  }
+
+  .hero-content
+  p {
+    margin: 20px;
+  }
+
   .about-hero {
     flex-direction: column;
     padding: 16px 20px;
