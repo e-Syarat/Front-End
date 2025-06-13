@@ -1,10 +1,10 @@
-import QuizModel from "./quiz-model.js";
-import QuizPage from "./quiz-page.js";
+import AlphabetModel from "./alphabet-model.js";
+import AlphabetPage from "./alphabet-page.js";
 
-export default class QuizPresenter {
+export default class AlphabetPresenter {
   constructor(root) {
-    this.model = new QuizModel();
-    this.view = new QuizPage(root);
+    this.model = new AlphabetModel();
+    this.view = new AlphabetPage(root);
     this.view.onAnswer = this.handleAnswer.bind(this);
     this.view.onRetry = this.handleRetry.bind(this);
   }

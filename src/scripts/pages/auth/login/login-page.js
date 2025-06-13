@@ -77,7 +77,7 @@ export default class LoginPage {
       if (typeof globalThis.rerenderNavbar === "function") {
         globalThis.rerenderNavbar();
       }
-      window.location.hash = "#/practice";
+      window.location.hash = "#/home";
     }
   }
 }

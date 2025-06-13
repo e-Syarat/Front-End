@@ -1,6 +1,6 @@
 import LogoImg from "../../../assets/logo.png";
 import HeroImg from "../../../assets/e-syarat.png";
-import { renderNavbar } from '../../components/navbar.js';
+import { renderNavbar } from "../../components/navbar.js";
 // View untuk Homepage (MVP Pattern)
 
 export default class HomePage {
@@ -18,12 +18,12 @@ export default class HomePage {
           <div class="cta-buttons">
             <a href="#/practice" class="btn">Mulai Belajar</a>
             ${hero.cta
-        .filter((btn) => btn.text !== "Start Learning")
-        .map(
-          (btn) =>
-            `<a href="${btn.link}" class="btn-outline">${btn.text}</a>`
-        )
-        .join(" ")}
+              .filter((btn) => btn.text !== "Start Learning")
+              .map(
+                (btn) =>
+                  `<a href="${btn.link}" class="btn-outline">${btn.text}</a>`
+              )
+              .join(" ")}
           </div>
         </div>
         <div class="hero-image">
@@ -34,30 +34,30 @@ export default class HomePage {
         <h2>Mengapa Belajar dengan e-Syarat?</h2>
         <div class="container feature-list">
           ${features
-        .map(
-          (f) => `
+            .map(
+              (f) => `
             <div class="feature-item">
               <span class="feature-icon"><img src="${f.icon}" alt="icon"/></span>
               <h3>${f.title}</h3>
               <p>${f.description}</p>
             </div>
           `
-        )
-        .join("")}
+            )
+            .join("")}
         </div>
       </section>
       <section class="stats">
         <div class="stat-list">
           ${stats
-        .map(
-          (s) => `
+            .map(
+              (s) => `
             <div class="stat-item">
               <span class="stat-value">${s.value}</span>
               <span class="stat-label">${s.label}</span>
             </div>
           `
-        )
-        .join("")}
+            )
+            .join("")}
         </div>
       </section>
       <section class="cta-banner">
@@ -72,8 +72,8 @@ export default class HomePage {
         <h2>Apa Kata Pengguna Kami</h2>
         <div class="container testimonial-list">
           ${testimonials
-        .map(
-          (t) => `
+            .map(
+              (t) => `
             <div class="testimonial-item">
               <div class="testimonial-avatar"><img src="${t.avatar}" alt="avatar"/></div>
               <div class="testimonial-content">
@@ -83,8 +83,8 @@ export default class HomePage {
               </div>
             </div>
           `
-        )
-        .join("")}
+            )
+            .join("")}
         </div>
       </section>
     `;

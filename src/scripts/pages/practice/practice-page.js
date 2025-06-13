@@ -194,10 +194,10 @@ export default class PracticePage {
 
     // Redirect kategori
     document.getElementById("category-alphabet").onclick = () => {
-      window.location.hash = "#/quiz";
+      window.location.hash = "#/quiz/alphabet";
     };
     document.getElementById("category-numbers").onclick = () => {
-      window.location.hash = "#/dictionary/numbers";
+      window.location.hash = "#/quiz/numbers";
     };
   }
 }

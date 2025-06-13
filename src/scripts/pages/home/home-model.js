@@ -53,7 +53,7 @@ export default class HomeModel {
 
   getTestimonials() {
     return [
-            {
+      {
         avatar: `${img1}`,
         name: "Sarah Johnson",
         role: "Pelajar",

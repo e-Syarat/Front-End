@@ -1,4 +1,4 @@
-import { getQuiz } from "../../data/api";
+import { getQuiz } from "../../../data/api";
 
 export default class QuizModel {
   constructor() {

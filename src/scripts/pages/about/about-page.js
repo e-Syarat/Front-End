@@ -1,3 +1,5 @@
+import aboutHero from "../../../assets/illustration/aboutHero.png";
+
 export default class AboutPage {
   constructor(root) {
     this.root = root;
@@ -11,8 +13,8 @@ export default class AboutPage {
             <h1 class="about-title"><i class="fas fa-sign-language"></i> e-<strong>Syarat</strong></h1>
             <p class="about-desc">${data.description}</p>
           </div>
-          <div class="about-hero-img">
-            <img src="/src/assets/about-hero.png" alt="People illustration" class="about-hero-illustration" />
+          <div class="about-hero-img container">
+            <img src="${aboutHero}" alt="People illustration" class="about-hero-illustration" />
           </div>
         </section>
         <section class="about-mission-vision">

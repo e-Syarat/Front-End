@@ -7,7 +7,8 @@ import AboutPresenter from "../pages/about/about-presenter.js";
 import AlphabetPresenter from "../pages/dictionary/alphabet/alphabet-presenter.js";
 import NumbersPresenter from "../pages/dictionary/numbers/numbers-presenter.js";
 import DailyWordsPresenter from "../pages/dictionary/daily-words/dailyWords-presenter.js";
-import QuizPresenter from "../pages/quiz/quiz-presenter.js";
+import AlphabetQuizPresenter from "../pages/quiz/alphabet/alphabet-presenter.js";
+import NumbersQuizPresenter from "../pages/quiz/numbers/numbers-presenter.js";
 import PaketPresenter from "../pages/paket/paket-presenter.js";
 import PaymentPresenter from "../pages/payment/payment-presenter.js";
 
@@ -24,7 +25,8 @@ export default class Router {
       "#/dictionary/alphabet": () => new AlphabetPresenter(this.root),
       "#/dictionary/numbers": () => new NumbersPresenter(this.root),
       "#/dictionary/daily-words": () => new DailyWordsPresenter(this.root),
-      "#/quiz": () => new QuizPresenter(this.root),
+      "#/quiz/alphabet": () => new AlphabetQuizPresenter(this.root),
+      "#/quiz/numbers": () => new NumbersQuizPresenter(this.root),
       "#/paket": () => new PaketPresenter(this.root),
       "#/payment": () => new PaymentPresenter(this.root),
     };
@@ -53,7 +55,14 @@ export default class Router {
       presenter.init();
       this.updateActiveNav();
     } else {
-      this.root.innerHTML = `<h2>404 - Page not found</h2>`;
+      this.root.innerHTML = `
+      <section class="not-found-section">
+        <div style="text-align: center; padding: 40px 20px;">
+          <h2 style="font-size: 24px; color: #1e3a8a; margin-bottom: 16px;">404 - Page not found</h2>
+          <p style="color: #666; margin-bottom: 24px;">Halaman yang Anda cari tidak ditemukan.</p>
+        </div>
+      </section>
+      `;
     }
   }
 
@@ -65,7 +74,8 @@ export default class Router {
       if (
         (href === "#/dictionary" && hash.startsWith("#/dictionary")) ||
         (href === "#/practice" && hash.startsWith("#/practice")) ||
-        (href === "#/practice" && hash.startsWith("#/quiz")) ||
+        (href === "#/practice" && hash.startsWith("#/quiz/alphabet")) ||
+        (href === "#/practice" && hash.startsWith("#/quiz/numbers")) ||
         href === hash
       ) {
         link.classList.add("active");

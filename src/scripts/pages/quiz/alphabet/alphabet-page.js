@@ -1,4 +1,4 @@
-export default class QuizPage {
+export default class AlphabetPage {
   constructor(root) {
     this.root = root;
     this.onAnswer = null;

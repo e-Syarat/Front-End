@@ -1,4 +1,8 @@
 import LogoImg from "../../assets/logo.png";
+import Facebook from "../../assets/icon/facebook.png";
+import Twitter from "../../assets/icon/twitter.png";
+import Instagram from "../../assets/icon/instagram.png";
+import Youtube from "../../assets/icon/youtube.png";
 
 export function renderFooter() {
   return `
@@ -28,10 +32,18 @@ export function renderFooter() {
           <div>
             <h4>Terhubung</h4>
             <div class="footer-socials">
-              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f footer-social-icon"></i></a>
-              <a href="#" aria-label="Twitter"><i class="fab fa-twitter footer-social-icon"></i></a>
-              <a href="#" aria-label="Instagram"><i class="fab fa-instagram footer-social-icon"></i></a>
-              <a href="#" aria-label="YouTube"><i class="fab fa-youtube footer-social-icon"></i></a>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="${Facebook}" alt="Facebook" />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="${Twitter}" alt="Twitter" />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="${Instagram}" alt="Instagram" />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer">
+                <img src="${Youtube}" alt="YouTube" />
+              </a>
             </div>
           </div>
         </div>
