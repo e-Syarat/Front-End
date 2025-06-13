@@ -380,7 +380,9 @@
     width: 120px;
     height: auto;
   }
-
+  .features {
+    margin: 0 20px;
+  }
   .feature-list,
   .testimonial-list,
   .stat-list {
@@ -393,6 +395,10 @@
   .testimonial-item {
     width: 100%;
     padding: 16px 8px;
+  }
+  
+  .testimonials {
+    margin: 0 20px;
   }
 
   .cta-buttons {
