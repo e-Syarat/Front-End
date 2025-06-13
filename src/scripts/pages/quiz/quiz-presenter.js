@@ -3,24 +3,17 @@ import QuizPage from "./quiz-page.js";
 
 export default class QuizPresenter {
   constructor(root) {
-    this.root = root;
     this.model = new QuizModel();
     this.view = new QuizPage(root);
-    this.quizData = [];
-    this.currentIndex = 0;
-    this.score = 0;
-    this.answered = false;
+    this.view.onAnswer = this.handleAnswer.bind(this);
     this.view.onRetry = this.handleRetry.bind(this);
   }
 
   async init() {
     this.view.showLoading();
-    const token = localStorage.getItem("token");
-    this.quizData = await this.model.fetchQuiz(token);
-    this.currentIndex = 0;
-    this.score = 0;
-    this.answered = false;
-    if (Array.isArray(this.quizData) && this.quizData.length > 0) {
+    const quizData = await this.model.fetchQuiz();
+
+    if (Array.isArray(quizData) && quizData.length > 0) {
       this.renderCurrentQuiz();
     } else {
       this.view.renderError(
@@ -30,48 +23,33 @@ export default class QuizPresenter {
   }
 
   renderCurrentQuiz() {
-    const currentQuiz = this.quizData[this.currentIndex];
-    if (!this.isQuizDataValid(currentQuiz)) {
+    const currentQuiz = this.model.getCurrentQuiz();
+    if (!this.model.isQuizDataValid(currentQuiz)) {
       this.view.renderError(
-        "Data quiz tidak lengkap pada soal ke-" + (this.currentIndex + 1)
+        "Data quiz tidak lengkap pada soal ke-" + (this.model.currentIndex + 1)
       );
       return;
     }
-    this.answered = false;
-    this.view.render(currentQuiz, this.currentIndex + 1, this.quizData.length);
-    this.view.onAnswer = this.handleAnswer.bind(this);
-  }
 
-  isQuizDataValid(data) {
-    if (!data) return false;
-    const requiredFields = [
-      "question",
-      "image",
-      "opsi1",
-      "opsi2",
-      "opsi3",
-      "opsi4",
-      "answer",
-    ];
-    return requiredFields.every(
-      (f) =>
-        typeof data[f] !== "undefined" && data[f] !== null && data[f] !== ""
+    this.view.render(
+      currentQuiz,
+      this.model.currentIndex + 1,
+      this.model.quizData.length
     );
   }
 
   handleAnswer(userAnswer) {
-    if (this.answered) return;
-    this.answered = true;
-    const currentQuiz = this.quizData[this.currentIndex];
-    const isCorrect = this.model.checkAnswer(userAnswer, currentQuiz.answer);
-    if (isCorrect) this.score++;
-    this.view.showResult(isCorrect, currentQuiz.answer);
+    const result = this.model.submitAnswer(userAnswer);
+    if (!result) return;
+
+    this.view.showResult(result.isCorrect, result.correctAnswer);
+
     setTimeout(() => {
-      this.currentIndex++;
-      if (this.currentIndex < this.quizData.length) {
+      if (this.model.nextQuestion()) {
         this.renderCurrentQuiz();
       } else {
-        this.view.showFinalScore(this.score, this.quizData.length);
+        const score = this.model.getScore();
+        this.view.showFinalScore(score.score, score.total);
       }
     }, 1200);
   }

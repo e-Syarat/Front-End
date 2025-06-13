@@ -6,6 +6,10 @@ export default class AlphabetPage {
     this.originalData = [];
   }
 
+  showLoading() {
+    this.root.innerHTML = "<p>Loading...</p>";
+  }
+
   render(data, query = "") {
     this.data = data;
     if (!this.originalData.length) this.originalData = data; // Simpan data asli
@@ -20,7 +24,9 @@ export default class AlphabetPage {
             <a href="#/dictionary/numbers" class="dictionary-tab">Angka</a>
             <a href="#/dictionary/daily-words" class="dictionary-tab">Kata Sehari-hari</a>
           </div>
-          <input type="search" class="dictionary-search" placeholder="Cari huruf, angka, atau kata..." value="${query || ""}" />
+          <input type="search" class="dictionary-search" placeholder="Cari huruf, angka, atau kata..." value="${
+            query || ""
+          }" />
         </div>
         <div class="dictionary-grid">
           ${data
@@ -38,14 +44,16 @@ export default class AlphabetPage {
         </div>
       </main>
     `;
+
+    this._setupEventListeners();
+  }
+
+  _setupEventListeners() {
     const input = this.root.querySelector(".dictionary-search");
-    input.value = query;
     input.addEventListener("input", () => {
-      const val = input.value.trim().toLowerCase();
-      const filtered = this.originalData.filter((item) =>
-        item.letter.toLowerCase().includes(val)
-      );
-      this.render(filtered, input.value);
+      if (this.onSearch) {
+        this.onSearch(input.value.trim());
+      }
     });
   }
 }

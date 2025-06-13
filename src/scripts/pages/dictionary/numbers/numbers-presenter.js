@@ -3,15 +3,19 @@ import NumbersPage from "./numbers-page.js";
 
 export default class NumbersPresenter {
   constructor(root) {
-    this.root = root;
     this.model = new NumbersModel();
     this.view = new NumbersPage(root);
+    this.view.onSearch = this.handleSearch.bind(this);
   }
 
   async init() {
-    this.root.innerHTML = "<p>Loading...</p>";
-    const token = localStorage.getItem("token");
-    const data = await this.model.fetchAll(token);
+    this.view.showLoading();
+    const data = await this.model.fetchAll();
     this.view.render(data);
+  }
+
+  handleSearch(query) {
+    const filtered = this.model.search(query);
+    this.view.render(filtered, query);
   }
 }

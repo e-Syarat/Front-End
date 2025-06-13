@@ -14,16 +14,6 @@ export default class LoginPresenter {
     this.view.render();
   }
 
-  // handleLogin sementara
-  // handleLogin(email, password) {
-  //   const result = this.model.login(email, password);
-  //   this.view.showMessage(result.message, result.success);
-  //   if (result.success) {
-  //     localStorage.setItem("isLoggedIn", "true");
-  //     window.location.hash = "#/home";
-  //   }
-  // }
-
   // handleLogin integrasi API
   async handleLogin(email, password) {
     const result = await this.model.login(email, password);

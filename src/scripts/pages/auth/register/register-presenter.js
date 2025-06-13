@@ -12,12 +12,10 @@ export default class RegisterPresenter {
   }
 
   async handleRegister(fullname, email, password) {
-    // Integrasi ke backend
     const result = await this.model.register(fullname, email, password);
     this.view.showMessage(result.message, result.success);
     if (result.success) {
-      localStorage.setItem("isLoggedIn", "true");
-      window.location.hash = "#/home";
+      this.view.onRegisterSuccess();
     }
   }
 }

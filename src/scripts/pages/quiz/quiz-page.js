@@ -5,6 +5,10 @@ export default class QuizPage {
     this.onRetry = null;
   }
 
+  showLoading() {
+    this.root.innerHTML = `<section class="quiz-section"><p style="text-align:center;">Loading quiz...</p></section>`;
+  }
+
   render(quiz, index, total) {
     this.root.innerHTML = `
       <section class="quiz-section">
@@ -23,9 +27,13 @@ export default class QuizPage {
           </div>
           <button type="submit" class="btn" style="margin-top:16px;">Kirim Jawaban</button>
         </form>
-        <div id="quiz-feedback"></div>
       </section>
     `;
+
+    this._setupEventListeners();
+  }
+
+  _setupEventListeners() {
     const form = document.getElementById("quiz-form");
     form.onsubmit = (e) => {
       e.preventDefault();
@@ -70,16 +78,14 @@ export default class QuizPage {
         </div>
       </section>
     `;
-    document.getElementById("quiz-retry").onclick = () => {
-      if (this.onRetry) this.onRetry();
-    };
+
+    const retryButton = document.getElementById("quiz-retry");
+    if (retryButton && this.onRetry) {
+      retryButton.onclick = this.onRetry;
+    }
   }
 
   renderError(msg) {
     this.root.innerHTML = `<div class='quiz-error'>${msg}</div>`;
-  }
-
-  showLoading() {
-    this.root.innerHTML = `<section class="quiz-section"><p style="text-align:center;">Loading quiz...</p></section>`;
   }
 }

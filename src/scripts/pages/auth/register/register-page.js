@@ -4,6 +4,7 @@ export default class RegisterPage {
   constructor(root, onRegisterSubmit) {
     this.root = root;
     this.onRegisterSubmit = onRegisterSubmit;
+    this.onRegisterSuccess = null;
   }
 
   render() {
@@ -34,6 +35,10 @@ export default class RegisterPage {
       </section>
     `;
 
+    this._setupEventListeners();
+  }
+
+  _setupEventListeners() {
     const form = document.getElementById("register-form");
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -52,7 +57,9 @@ export default class RegisterPage {
     overlay.className = "modal-overlay";
 
     const box = document.createElement("div");
-    box.className = `modal-box ${success ? "success" : "error"}${!success ? " shake" : ""}`;
+    box.className = `modal-box ${success ? "success" : "error"}${
+      !success ? " shake" : ""
+    }`;
     box.innerHTML = `
       <p>${message}</p>
       <button>OK</button>
@@ -65,5 +72,9 @@ export default class RegisterPage {
     box.querySelector("button").addEventListener("click", () => {
       overlay.remove();
     });
+
+    if (success && this.onRegisterSuccess) {
+      this.onRegisterSuccess();
+    }
   }
 }
