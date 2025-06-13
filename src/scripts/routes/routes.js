@@ -35,35 +35,69 @@ export default class Router {
     window.addEventListener("load", () => this.handleRoute());
   }
 
-  handleRoute() {
+  async handleRoute() {
     const hash = window.location.hash || "#/";
     const path = hash.split('?')[0];
+
+    // Add loading state
+    this.root.classList.add('loading');
+
     if (path === "#/dictionary") {
       window.location.hash = "#/dictionary/alphabet";
       return;
     }
+
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     const publicRoutes = ["#/", "#/home", "#/login", "#/register", "#/about"];
+
     if (!isLoggedIn && !publicRoutes.includes(path)) {
       window.location.hash = "#/login";
       return;
     }
+
     const routeHandler = this.routes[path];
     console.log("[Router] Navigating to:", hash);
+
     if (routeHandler) {
+      // Clear previous content with fade out
+      await this.fadeOut();
+
+      // Initialize new page
       const presenter = routeHandler();
-      presenter.init();
+      await presenter.init();
+
+      // Add transition class to new content
+      this.root.classList.add('page-transition');
+
+      // Remove loading and transition classes after animation
+      setTimeout(() => {
+        this.root.classList.remove('loading');
+        this.root.classList.remove('page-transition');
+      }, 600);
+
       this.updateActiveNav();
     } else {
       this.root.innerHTML = `
-      <section class="not-found-section">
+      <section class="not-found-section page-transition">
         <div style="text-align: center; padding: 40px 20px;">
           <h2 style="font-size: 24px; color: #1e3a8a; margin-bottom: 16px;">404 - Page not found</h2>
           <p style="color: #666; margin-bottom: 24px;">Halaman yang Anda cari tidak ditemukan.</p>
         </div>
       </section>
       `;
+      this.root.classList.remove('loading');
     }
+  }
+
+  async fadeOut() {
+    return new Promise(resolve => {
+      this.root.style.opacity = '0';
+      setTimeout(() => {
+        this.root.innerHTML = '';
+        this.root.style.opacity = '1';
+        resolve();
+      }, 300);
+    });
   }
 
   updateActiveNav() {

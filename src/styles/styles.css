@@ -24,6 +24,13 @@ body {
   width: 100%;
   max-width: 100vw;
   overflow-x: visible !important;
+  min-height: 100vh;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+#app.loading {
+  opacity: 0;
 }
 
 .container {
@@ -71,6 +78,8 @@ body {
   font-size: 1rem;
   text-decoration: none;
   transition: background 0.2s, color 0.2s;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn {
@@ -81,6 +90,25 @@ body {
 
 .btn:hover {
   background: #1746a2;
+  transform: translateY(-2px);
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background: linear-gradient(120deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
+  transition: 0.5s;
+}
+
+.btn:hover::after {
+  left: 100%;
 }
 
 .btn-outline {
@@ -287,7 +315,7 @@ body {
   font-weight: 500;
   padding: 4px 0;
   position: relative;
-  transition: color 0.2s;
+  transition: color 0.3s ease;
 }
 
 .nav-link.active,
@@ -295,17 +323,23 @@ body {
   color: #2563eb;
 }
 
-.nav-link.active::after,
-.nav-link:hover::after {
-  content: "";
-  display: block;
-  height: 2px;
-  background: #2563eb;
-  width: 100%;
-  border-radius: 2px;
+.nav-link::after {
+  content: '';
   position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
   left: 0;
-  bottom: -4px;
+  background-color: #046D8B;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.active::after {
+  width: 100%;
 }
 
 .login-btn {
@@ -1572,4 +1606,110 @@ body {
 /* Hide loader when content is loaded */
 .loader.hidden {
   display: none;
+}
+
+/* Page Transition Animations */
+.page-transition {
+  animation: fadeInPage 0.6s ease-in-out;
+}
+
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Navigation Transition */
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #046D8B;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Smooth Page Content */
+#app {
+  min-height: 100vh;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+#app.loading {
+  opacity: 0;
+}
+
+/* Card Hover Effects */
+.dictionary-card,
+.quiz-card,
+.practice-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dictionary-card:hover,
+.quiz-card:hover,
+.practice-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Hover Animation */
+.btn {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background: linear-gradient(120deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
+  transition: 0.5s;
+}
+
+.btn:hover::after {
+  left: 100%;
+}
+
+/* Form Input Animation */
+.form-control {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #046D8B;
+  box-shadow: 0 0 0 0.2rem rgba(4, 109, 139, 0.25);
 }
