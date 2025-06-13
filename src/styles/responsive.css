@@ -505,7 +505,15 @@
   }
 
   .login-illustration img {
-    width: 100px;
+    display: none;
+  }
+  
+  #login-form {
+    margin-right: 30px;
+  }
+
+  #register-form {
+    margin-right: 30px;
   }
 
   .main-nav {
