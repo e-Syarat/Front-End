@@ -690,10 +690,12 @@ body {
 }
 
 .about-team-cards {
-  display: flex;
+  display: grid;
   justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin: 24px auto 0 auto; 
+  max-width: 800px;
 }
 
 .about-team-card {
@@ -741,6 +743,16 @@ body {
   justify-content: center;
   gap: 16px;
   margin-top: 20px;
+}
+@media (max-width: 900px) {
+  .about-team-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .about-team-cards {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ================= Dictionary Page Styles ================= */
