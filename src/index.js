@@ -8,6 +8,14 @@ import {
 } from "./scripts/components/navbar.js";
 import { renderFooter } from "./scripts/components/footer.js";
 
+// Handle loading state
+window.addEventListener('load', () => {
+  const loader = document.querySelector('.loader');
+  if (loader) {
+    loader.classList.add('hidden');
+  }
+});
+
 document.getElementById("navbar").innerHTML = "";
 document.getElementById("footer").innerHTML = "";
 document.getElementById("navbar").innerHTML = renderNavbar();
