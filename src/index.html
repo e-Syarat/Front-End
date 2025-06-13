@@ -4,17 +4,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>e-Syarat - Learn Sign Language</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Learn sign language through interactive lessons and practice" />
+    <meta name="theme-color" content="#046D8B" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="e-Syarat" />
+    
+    <!-- PWA Icons -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/icon/icon-192x192.png" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    
     <!-- Font Awesome CDN -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
   </head>
   <body>
     <div class="loader"></div>
     <div id="navbar"></div>
     <div id="app"></div>
     <div id="footer"></div>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js')
+            .then((registration) => {
+              console.log('ServiceWorker registration successful');
+            })
+            .catch((err) => {
+              console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+      }
+    </script>
   </body>
 </html>

@@ -46,6 +46,18 @@ module.exports = {
         {
           from: 'src/public/assets/tfjs_model',
           to: 'assets/tfjs_model'
+        },
+        {
+          from: 'src/assets/icon',
+          to: 'assets/icon'
+        },
+        {
+          from: 'src/manifest.json',
+          to: 'manifest.json'
+        },
+        {
+          from: 'src/sw.js',
+          to: 'sw.js'
         }
       ]
     })
